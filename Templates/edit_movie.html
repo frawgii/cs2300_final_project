@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block change_movie %}
+    <h1>{% block game_movie %} Edit "{{ movie['mo_title'] }}" {% endblock %}</h1>
+    <form method="post">
+        <label for="mo_title">Movie Title</label>
+        <br>
+        <input type="text" name="mo_title"
+               placeholder="Movie title"
+               value="{{ request.form['mo_title'] or movie['mo_title'] }}"></input>
+        <br>
+
+        <label for="year_no">Year Number</label>
+        <br>
+        <input type="text" name="year_no"
+               placeholder="Year"
+               value="{{ request.form['year_no'] or movie['year_no'] }}"></input>
+        <br>
+
+        <label for="favorite">Is favorite? (0 no, 1 yes)</label>
+        <br>
+        <input type="text" name="favorite"
+               placeholder="Favorite?"
+               value="{{ request.form['favorite'] or movie['favorite'] }}"></input>
+        <br>
+
+        <label for="media_comment">Movie Comment</label>
+        <br>
+        <input type="text" name="media_comment"
+               placeholder="Game comment"
+               value="{{ request.form['media_comment'] or movie['media_comment'] }}"></input>
+        <br>
+
+        <label for="star_amount">Movie Star Amount</label>
+        <br>
+        <input type="text" name="star_amount"
+               placeholder="Star amount"
+               value="{{ request.form['star_amount'] or movie['star_amount'] }}"></input>
+        <br>
+        
+        <label for="mo_director">Movie Director</label>
+        <br>
+        <input type="text" name="mo_director"
+               placeholder="Director"
+               value="{{ request.form['mo_director'] or movie['mo_director'] }}"></input>
+        <br>
+        
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
