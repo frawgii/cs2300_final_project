@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}- FlaskApp</title>
+    <style>
+        .post {
+            padding: 10px;
+            margin: 5px;
+            background-color: #f3f3f3
+        }
+
+        nav a {
+            color: #2c22ee;
+            font-size: 3em;
+            margin-left: 50px;
+            text-decoration: none;
+        }
+
+        .alert {
+            padding: 20px;
+            margin: 5px;
+            color: #970020;
+            background-color: #ffd5de;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">View Media and Characters</a>
+        <a href="{{ url_for('create_start') }}">Add New</a>
+        <a href="#">Edit Existing</a>
+        <a href="#">Delete</a>
+    </nav>
+    <hr>
+    <div class="content">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block content %} {% endblock %}
+    </div>
+    <div class="user_info">
+        {% block user_info %} {% endblock %}
+    </div>
+    <div class="create_start_page">
+        {% block create_start_page %} {% endblock %}
+    </div>
+    <div class="song_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block song_info %} {% endblock %}
+    </div>
+    <div class="movie_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block movie_info %} {% endblock %}
+    </div>
+    <div class="game_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block game_info %} {% endblock %}
+    </div>
+    <div class="comic_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block comic_info %} {% endblock %}
+    </div>
+    <div class="tv_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block tv_info %} {% endblock %}
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Posts {% endblock %}</h1>
+    {% for post in posts %}
+        <div class='post'>
+            <p>{{ post['created'] }}</p>
+            <h2>{{ post['title'] }}</h2>
+            <p>{{ post['content'] }}</p>
+            <a class="btn" href="{{ url_for('edit', id=post['id']) }}">Edit</a>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block user_info %}
+    <h1>{% block user_title %} User Information {% endblock %}</h1>
+    {% for user in users %}
+        <div class='user'>
+            <table>
+                <tr>
+                  <th>Username: {{ user['username'] }} &emsp; </th>
+                  <th>Email: {{ user['email'] }} &emsp; </th>
+                  <th>Phone Number: {{ user['phone_no'] }} &emsp; </th>
+                </tr>
+            </table>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block song_info %}
+    <h1>{% block song_title %} Songs {% endblock %}</h1>
+    <div class='songs'>
+    <table>
+        <tr>
+            <th>Song Title</th>
+            <th>Year &emsp; </th>
+            <th>Star Amount &emsp;</th>
+            <th>Song Length &emsp;</th>
+            <th>Genre &emsp;</th>
+        </tr>
+        {% for songs in song %}
+        <tr>
+            <td>{{ songs['s_title'] }}</td>
+            <td>{{ songs['year_no'] }}</td>
+            <td>{{ songs['star_amount'] }}</td>
+            <td>{{ songs['s_length'] }}</td>
+            <td>{{ songs['s_genre'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block comic_info %}
+    <h1>{% block comic_title %} Comics {% endblock %}</h1>
+    <div class='comics'>
+    <table>
+        <tr>
+            <th>Comic Title</th>
+            <th>Year &emsp; </th>
+            <th>Star Amount &emsp;</th>
+            <th>Comic Series &emsp;</th>
+        </tr>
+        {% for comics in comic %}
+        <tr>
+            <td>{{ comics['c_title'] }}</td>
+            <td>{{ comics['year_no'] }}</td>
+            <td>{{ comics['star_amount'] }}</td>
+            <td>{{ comics['c_series'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block tv_info %}
+    <h1>{% block tv_title %} TV Shows {% endblock %}</h1>
+    <div class='tvs'>
+    <table>
+        <tr>
+            <th>TV Show Title</th>
+            <th>Year &emsp; </th>
+            <th>Star Amount &emsp;</th>
+            <th>Season Count &emsp;</th>
+            <th>CGI? &emsp;</th>
+            <th>Animated? &emsp;</th>
+        </tr>
+        {% for tvs in tv_show %}
+        <tr>
+            <td>{{ tvs['tv_title'] }}</td>
+            <td>{{ tvs['year_no'] }}</td>
+            <td>{{ tvs['star_amount'] }}</td>
+            <td>{{ tvs['tv_season_count'] }}</td>
+            <td>{{ tvs['is_cgi'] }}</td>
+            <td>{{ tvs['is_animated'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block movie_info %}
+    <h1>{% block movie_title %} Movies {% endblock %}</h1>
+    <div class='songs'>
+    <table>
+        <tr>
+            <th>Movie Title</th>
+            <th>Year &emsp; </th>
+            <th>Star Amount &emsp;</th>
+            <th>Director &emsp;</th>
+        </tr>
+        {% for movies in movie %}
+        <tr>
+            <td>{{ movies['mo_title'] }}</td>
+            <td>{{ movies['year_no'] }}</td>
+            <td>{{ movies['star_amount'] }}</td>
+            <td>{{ movies['mo_director'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block game_info %}
+    <h1>{% block game_title %} Games {% endblock %}</h1>
+    <div class='games'>
+    <table>
+        <tr>
+            <th>Game Title</th>
+            <th>Year &emsp; </th>
+            <th>Star Amount &emsp;</th>
+        </tr>
+        {% for games in game %}
+        <tr>
+            <td>{{ games['g_title'] }}</td>
+            <td>{{ games['year_no'] }}</td>
+            <td>{{ games['star_amount'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

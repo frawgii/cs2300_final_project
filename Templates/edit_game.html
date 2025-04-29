@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block change_game %}
+    <h1>{% block game_change %} Edit "{{ game['g_title'] }}" {% endblock %}</h1>
+    <form method="post">
+        <label for="title">Game Title</label>
+        <br>
+        <input type="text" name="g_title"
+               placeholder="Game title"
+               value="{{ request.form['g_title'] or game['g_title'] }}"></input>
+        <br>
+
+        <label for="title">Year Number</label>
+        <br>
+        <input type="text" name="g_title"
+               placeholder="Game title"
+               value="{{ request.form['g_title'] or game['g_title'] }}"></input>
+        <br>
+
+        <label for="title">Is favorite? (0 no, 1 yes)</label>
+        <br>
+        <input type="text" name="g_title"
+               placeholder="Game title"
+               value="{{ request.form['g_title'] or game['g_title'] }}"></input>
+        <br>
+
+        <label for="title">Game Title</label>
+        <br>
+        <input type="text" name="g_title"
+               placeholder="Game title"
+               value="{{ request.form['g_title'] or game['g_title'] }}"></input>
+        <br>
+
+        <label for="title">Game Title</label>
+        <br>
+        <input type="text" name="g_title"
+               placeholder="Game title"
+               value="{{ request.form['g_title'] or game['g_title'] }}"></input>
+        <br>
+        
+        
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

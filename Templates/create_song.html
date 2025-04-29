@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block song_info %}
+    <h1>{% block song_title %} Add a New Song {% endblock %}</h1>
+    <form method="post">
+        <label for="s_title">Song Title</label>
+        <br>
+        <input type="text" name="s_title"
+               placeholder="Song title"
+               value="{{ request.form['s_title'] }}"></input>
+        <br>
+
+        <label for="year_no">Year</label>
+        <br>
+        <input type="int" name="year_no"
+               placeholder="Year"
+               value="{{ request.form['year_no'] }}"></input>
+        <br>
+
+        <label for="favorite">Is favorite? (0 not, 1 is)</label>
+        <br>
+        <input type="text" name="favorite"
+               placeholder="Favorite?"
+               value="{{ request.form['favorite'] }}"></input>
+        <br>
+
+        <label for="star_amount">Star Amount</label>
+        <br>
+        <input type="int" name="star_amount"
+               placeholder="Star Amount"
+               value="{{ request.form['star_amount'] }}"></input>
+        <br>
+
+        <label for="media_comment">Song Comment</label>
+        <br>
+        <input type="text" name="media_comment"
+               placeholder="Comment"
+               value="{{ request.form['media_comment'] }}"></input>
+        <br>
+
+        <label for="s_length">Song Length</label>
+        <br>
+        <input type="float(24)" name="s_length"
+               placeholder="Song length"
+               value="{{ request.form['s_length'] }}"></input>
+        <br>
+
+        <label for="s_genre">Song Genre</label>
+        <br>
+        <input type="text" name="s_genre"
+               placeholder="Song genre"
+               value="{{ request.form['s_genre'] }}"></input>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

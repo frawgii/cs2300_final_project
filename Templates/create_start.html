@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block create_start_page %}
+<div class="dropdown">
+    <button class="dropbtn">Add New Media Entry</button>
+    <div class="dropdown-content">
+      <a href="{{ url_for('create_movie') }}">Movie</a>
+      <a href="{{ url_for('create_song') }}">Song</a>
+      <a href="{{ url_for('create_comic') }}">Comic</a>
+      <a href="{{ url_for('create_game') }}">Game</a>
+      <a href="{{ url_for('create_tvshow') }}">TV Show</a>
+      <a href="{{ url_for('create') }}">DEFAULT</a>
+    </div>
+  </div>
+  {% endblock %}

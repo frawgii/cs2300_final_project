@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block tv_info %}
+    <h1>{% block tv_title %} Add a New TV Show {% endblock %}</h1>
+    <form method="post">
+        <label for="tv_title">TV Show Title</label>
+        <br>
+        <input type="text" name="tv_title"
+               placeholder="TV title"
+               value="{{ request.form['tv_title'] }}"></input>
+        <br>
+
+        <label for="year_no">Year</label>
+        <br>
+        <input type="int" name="year_no"
+               placeholder="Year"
+               value="{{ request.form['year_no'] }}"></input>
+        <br>
+
+        <label for="favorite">Is favorite? (0 not, 1 is)</label>
+        <br>
+        <input type="text" name="favorite"
+               placeholder="Favorite?"
+               value="{{ request.form['favorite'] }}"></input>
+        <br>
+
+        <label for="star_amount">Star Amount</label>
+        <br>
+        <input type="text" name="star_amount"
+               placeholder="Star Amount"
+               value="{{ request.form['star_amount'] }}"></input>
+        <br>
+
+        <label for="media_comment">TV Show Comment</label>
+        <br>
+        <input type="text" name="media_comment"
+               placeholder="Comment"
+               value="{{ request.form['media_comment'] }}"></input>
+        <br>
+
+        <label for="tv_season_count">Season count</label>
+        <br>
+        <input type="int" name="tv_season_count"
+               placeholder="Seasons"
+               value="{{ request.form['tv_season_count'] }}"></input>
+        <br>
+
+        <label for="is_cgi">Is it a CGI show? (0 no, 1 yes)</label>
+        <br>
+        <input type="text" name="is_cgi"
+               placeholder="CGI show"
+               value="{{ request.form['is_cgi'] }}"></input>
+        <br>
+
+        <label for="is_animated">Is it an animated show? (0 no, 1 yes)</label>
+        <br>
+        <input type="text" name="is_animated"
+               placeholder="Animated show"
+               value="{{ request.form['is_animated'] }}"></input>
+        <br>
+
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
