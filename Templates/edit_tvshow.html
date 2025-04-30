@@ -52,7 +52,12 @@
                value="{{ request.form['is_animated'] or tvs['is_animated'] }}"></input>
         <br>
         
-        
         <button type="submit">Submit</button>
+    </form>
+
+    <hr>
+    <form action="{{ url_for('delete_tvshow', id=tvs['id']) }}" method="POST">
+        <input type="submit" value="Delete TV Show"
+                onclick="return confirm('Are you sure you want to delete this TV show?')">
     </form>
 {% endblock %}

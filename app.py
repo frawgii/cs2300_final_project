@@ -80,6 +80,8 @@ def index():
     conn.close()
     return render_template('index.html', posts=posts, users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show)
 
+
+#Pages for creating new values
 @app.route('/create/', methods=('GET', 'POST'))
 def create():
     if request.method == 'POST':
@@ -398,3 +400,58 @@ def edit_game(id):
             conn.close()
             return redirect(url_for('index'))
     return render_template('edit_game.html', games=games)
+
+#Pages for deleting values
+@app.route('/<int:id>/delete/', methods=('POST',))
+def delete(id):
+    post = get_post(id)
+    conn = get_db_connection()
+    conn.execute('DELETE FROM posts WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
+@app.route('/<int:id>/delete_game/', methods=('POST',))
+def delete_game(id):
+    games = get_game(id)
+    conn = get_db_connection()
+    conn.execute('DELETE FROM game WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
+@app.route('/<int:id>/delete_movie/', methods=('POST',))
+def delete_movie(id):
+    movies = get_movie(id)
+    conn = get_db_connection()
+    conn.execute('DELETE FROM movie WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
+@app.route('/<int:id>/delete_song/', methods=('POST',))
+def delete_song(id):
+    songs = get_song(id)
+    conn = get_db_connection()
+    conn.execute('DELETE FROM song WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
+@app.route('/<int:id>/delete_tvshow/', methods=('POST',))
+def delete_tvshow(id):
+    tvs = get_tvshow(id)
+    conn = get_db_connection()
+    conn.execute('DELETE FROM tv_show WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
+@app.route('/<int:id>/delete_comic/', methods=('POST',))
+def delete_comic(id):
+    comics = get_comic(id)
+    conn = get_db_connection()
+    conn.execute('DELETE FROM comic WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
