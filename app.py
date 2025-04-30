@@ -29,6 +29,15 @@ def get_song(id):
         abort(404)
     return songs
 
+def get_comic(id):
+    conn = get_db_connection()
+    comics = conn.execute('SELECT * FROM comic WHERE id = ?',
+                        (id,)).fetchone()
+    conn.close()
+    if comics is None:
+        abort(404)
+    return comics
+
 @app.route('/')
 def index():
     conn = get_db_connection()
@@ -248,3 +257,31 @@ def edit_song(id):
             conn.close()
             return redirect(url_for('index'))
     return render_template('edit_song.html', songs=songs)
+
+@app.route('/<int:id>/edit_comic/', methods=('GET', 'POST'))
+def edit_comic(id):
+    comics = get_comic(id)
+
+    if request.method == 'POST':
+        c_title = request.form['c_title']
+        year_no = request.form['year_no']
+        favorite = request.form['favorite']
+        star_amount = request.form['star_amount']
+        media_comment = request.form['media_comment']
+        c_series = request.form['c_series']
+
+        if not c_title:
+            flash('Title is required!')
+
+        elif not year_no:
+            flash('Content is required!')
+
+        else:
+            conn = get_db_connection()
+            conn.execute('UPDATE comic SET c_title = ?, year_no = ?, favorite = ?, star_amount = ?, media_comment = ?, c_series = ?'
+                         ' WHERE id = ?',
+                         (c_title, year_no, favorite, star_amount, media_comment, c_series, id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+    return render_template('edit_comic.html', comics=comics)
