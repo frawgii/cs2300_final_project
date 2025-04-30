@@ -119,6 +119,8 @@
             <td>{{ movies['year_no'] }}</td>
             <td>{{ movies['star_amount'] }}</td>
             <td>{{ movies['mo_director'] }}</td>
+            <td><a href="{{ url_for('edit_movie', id=movies['id']) }}">Edit</a> </td>
+
         </tr>
         {% endfor %}
     </table>

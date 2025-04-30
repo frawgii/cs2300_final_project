@@ -47,6 +47,17 @@ def get_tvshow(id):
         abort(404)
     return tvs
 
+def get_movie(id):
+    conn = get_db_connection()
+    movies = conn.execute('SELECT * FROM movie WHERE id = ?',
+                        (id,)).fetchone()
+    conn.close()
+    if movies is None:
+        abort(404)
+    return movies
+
+
+#Index page
 @app.route('/')
 def index():
     conn = get_db_connection()
@@ -236,7 +247,7 @@ def create_start():
     return render_template('create_start.html')
 
 
-# HTML Pages for editing values
+#Pages for editing values
 
 @app.route('/<int:id>/edit_song/', methods=('GET', 'POST'))
 def edit_song(id):
@@ -300,7 +311,7 @@ def edit_tvshow(id):
     tvs = get_tvshow(id)
 
     if request.method == 'POST':
-        tv_title = request.form['c_title']
+        tv_title = request.form['tv_title']
         year_no = request.form['year_no']
         favorite = request.form['favorite']
         star_amount = request.form['star_amount']
@@ -323,3 +334,31 @@ def edit_tvshow(id):
             conn.close()
             return redirect(url_for('index'))
     return render_template('edit_tvshow.html', tvs=tvs)
+
+@app.route('/<int:id>/edit_movie/', methods=('GET', 'POST'))
+def edit_movie(id):
+    movies = get_movie(id)
+
+    if request.method == 'POST':
+        mo_title = request.form['mo_title']
+        year_no = request.form['year_no']
+        favorite = request.form['favorite']
+        star_amount = request.form['star_amount']
+        media_comment = request.form['media_comment']
+        mo_director = request.form['mo_director']
+
+        if not mo_title:
+            flash('Title is required!')
+
+        elif not year_no:
+            flash('Content is required!')
+
+        else:
+            conn = get_db_connection()
+            conn.execute('UPDATE movie SET mo_title = ?, year_no = ?, favorite = ?, star_amount = ?, media_comment = ?, mo_director = ?'
+                         ' WHERE id = ?',
+                         (mo_title, year_no, favorite, star_amount, media_comment, mo_director, id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+    return render_template('edit_movie.html', movies=movies)
