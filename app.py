@@ -20,10 +20,10 @@ def get_post(post_id):
         abort(404)
     return post
 
-def get_song(s_title):
+def get_song(id):
     conn = get_db_connection()
-    songs = conn.execute('SELECT * FROM song WHERE s_title = ?',
-                        (s_title,)).fetchone()
+    songs = conn.execute('SELECT * FROM song WHERE id = ?',
+                        (id,)).fetchone()
     conn.close()
     if songs is None:
         abort(404)
@@ -220,9 +220,9 @@ def create_start():
 
 # HTML Pages for editing values
 
-@app.route('/<int:id>/edit/_song', methods=('GET', 'POST'))
-def edit_song(s_title):
-    songs = get_song(s_title)
+@app.route('/<int:id>/edit_song/', methods=('GET', 'POST'))
+def edit_song(id):
+    songs = get_song(id)
 
     if request.method == 'POST':
         s_title = request.form['s_title']
@@ -242,8 +242,8 @@ def edit_song(s_title):
         else:
             conn = get_db_connection()
             conn.execute('UPDATE song SET s_title = ?, year_no = ?, favorite = ?, star_amount = ?, media_comment = ?, s_length = ?, s_genre = ?'
-                         ' WHERE s_title = ?',
-                         (s_title, year_no, favorite, star_amount, media_comment, s_length, s_genre))
+                         ' WHERE id = ?',
+                         (s_title, year_no, favorite, star_amount, media_comment, s_length, s_genre, id))
             conn.commit()
             conn.close()
             return redirect(url_for('index'))

@@ -1,55 +1,55 @@
 {% extends 'base.html' %}
 
-{% block change_song %}
+{% block song_info %}
     <h1>{% block song_change %} Edit "{{ songs['s_title'] }}" {% endblock %}</h1>
     <form method="post">
         <label for="s_title">Song Title</label>
         <br>
         <input type="text" name="s_title"
                placeholder="Song title"
-               value="{{ request.form['s_title'] or song['s_title'] }}"></input>
+               value="{{ request.form['s_title'] or songs['s_title'] }}"></input>
         <br>
 
         <label for="year_no">Year Number</label>
         <br>
         <input type="text" name="year_no"
                placeholder="Year"
-               value="{{ request.form['year_no'] or song['year_no'] }}"></input>
+               value="{{ request.form['year_no'] or songs['year_no'] }}"></input>
         <br>
 
         <label for="favorite">Is favorite? (0 no, 1 yes)</label>
         <br>
         <input type="text" name="favorite"
                placeholder="Favorite?"
-               value="{{ request.form['favorite'] or song['favorite'] }}"></input>
+               value="{{ request.form['favorite'] or songs['favorite'] }}"></input>
         <br>
 
         <label for="media_comment">Song Comment</label>
         <br>
         <input type="text" name="media_comment"
-               placeholder="Game comment"
-               value="{{ request.form['media_comment'] or song['media_comment'] }}"></input>
+               placeholder="Song comment"
+               value="{{ request.form['media_comment'] or songs['media_comment'] }}"></input>
         <br>
 
         <label for="star_amount">Song Star Amount</label>
         <br>
         <input type="text" name="star_amount"
                placeholder="Star amount"
-               value="{{ request.form['star_amount'] or song['star_amount'] }}"></input>
+               value="{{ request.form['star_amount'] or songs['star_amount'] }}"></input>
         <br>
 
         <label for="s_length">Song Length</label>
         <br>
         <input type="text" name="s_length"
                placeholder="Song length"
-               value="{{ request.form['s_length'] or song['s_length'] }}"></input>
+               value="{{ request.form['s_length'] or songs['s_length'] }}"></input>
         <br>
 
-        <label for="star_amount">Song Genre</label>
+        <label for="s_genre">Song Genre</label>
         <br>
         <input type="text" name="s_genre"
                placeholder="Song genre"
-               value="{{ request.form['s_genre'] or song['s_genre'] }}"></input>
+               value="{{ request.form['s_genre'] or songs['s_genre'] }}"></input>
         <br>
         
         
