@@ -38,6 +38,15 @@ def get_comic(id):
         abort(404)
     return comics
 
+def get_tvshow(id):
+    conn = get_db_connection()
+    tvs = conn.execute('SELECT * FROM tv_show WHERE id = ?',
+                        (id,)).fetchone()
+    conn.close()
+    if tvs is None:
+        abort(404)
+    return tvs
+
 @app.route('/')
 def index():
     conn = get_db_connection()
@@ -94,7 +103,7 @@ def edit(id):
             return redirect(url_for('index'))
     return render_template('edit.html', post=post)
 
-# HTML Pages for creating vpages
+# HTML for creating pages
 
 @app.route('/create_song/', methods=('GET', 'POST'))
 def create_song():
@@ -285,3 +294,32 @@ def edit_comic(id):
             conn.close()
             return redirect(url_for('index'))
     return render_template('edit_comic.html', comics=comics)
+
+@app.route('/<int:id>/edit_tvshow/', methods=('GET', 'POST'))
+def edit_tvshow(id):
+    tvs = get_tvshow(id)
+
+    if request.method == 'POST':
+        tv_title = request.form['c_title']
+        year_no = request.form['year_no']
+        favorite = request.form['favorite']
+        star_amount = request.form['star_amount']
+        media_comment = request.form['media_comment']
+        is_cgi = request.form['is_cgi']
+        is_animated = request.form['is_animated']
+
+        if not tv_title:
+            flash('Title is required!')
+
+        elif not year_no:
+            flash('Content is required!')
+
+        else:
+            conn = get_db_connection()
+            conn.execute('UPDATE tv_show SET tv_title = ?, year_no = ?, favorite = ?, star_amount = ?, media_comment = ?, is_cgi = ?, is_animated = ?'
+                         ' WHERE id = ?',
+                         (tv_title, year_no, favorite, star_amount, media_comment, is_cgi, is_animated, id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+    return render_template('edit_tvshow.html', tvs=tvs)

@@ -95,6 +95,8 @@
             <td>{{ tvs['tv_season_count'] }}</td>
             <td>{{ tvs['is_cgi'] }}</td>
             <td>{{ tvs['is_animated'] }}</td>
+            <td><a href="{{ url_for('edit_tvshow', id=tvs['id']) }}">Edit</a> </td>
+
         </tr>
         {% endfor %}
     </table>

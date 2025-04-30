@@ -1,55 +1,55 @@
 {% extends 'base.html' %}
 
-{% block change_tvshow %}
-    <h1>{% block tvshow_change %} Edit "{{ tv_show['tv_title'] }}" {% endblock %}</h1>
+{% block tv_info %}
+    <h1>{% block tvshow_change %} Edit "{{ tvs['tv_title'] }}" {% endblock %}</h1>
     <form method="post">
         <label for="tv_title">TV Show Title</label>
         <br>
         <input type="text" name="tv_title"
                placeholder="TV show title"
-               value="{{ request.form['tv_title'] or tv_show['tv_title'] }}"></input>
+               value="{{ request.form['tv_title'] or tvs['tv_title'] }}"></input>
         <br>
 
         <label for="year_no">Year Number</label>
         <br>
         <input type="text" name="year_no"
                placeholder="Year"
-               value="{{ request.form['year_no'] or tv_show['year_no'] }}"></input>
+               value="{{ request.form['year_no'] or tvs['year_no'] }}"></input>
         <br>
 
         <label for="favorite">Is favorite? (0 no, 1 yes)</label>
         <br>
         <input type="text" name="favorite"
                placeholder="Favorite?"
-               value="{{ request.form['favorite'] or tv_show['favorite'] }}"></input>
+               value="{{ request.form['favorite'] or tvs['favorite'] }}"></input>
         <br>
 
         <label for="media_comment">TV Show Comment</label>
         <br>
         <input type="text" name="media_comment"
-               placeholder="Game comment"
-               value="{{ request.form['media_comment'] or tv_show['media_comment'] }}"></input>
+               placeholder="TV Show comment"
+               value="{{ request.form['media_comment'] or tvs['media_comment'] }}"></input>
         <br>
 
         <label for="star_amount">TV Show Star Amount</label>
         <br>
         <input type="text" name="star_amount"
                placeholder="Star amount"
-               value="{{ request.form['star_amount'] or tv_show['star_amount'] }}"></input>
+               value="{{ request.form['star_amount'] or tvs['star_amount'] }}"></input>
         <br>
 
-        <label for="star_amount">Is it CGI?</label>
+        <label for="is_cgi">Is it CGI?</label>
         <br>
         <input type="text" name="is_cgi"
                placeholder="CGI?"
-               value="{{ request.form['is_cgi'] or tv_show['is_cgi'] }}"></input>
+               value="{{ request.form['is_cgi'] or tvs['is_cgi'] }}"></input>
         <br>
 
-        <label for="star_amount">Is it animated?</label>
+        <label for="is_animated">Is it animated?</label>
         <br>
         <input type="text" name="is_animated"
                placeholder="Animated?"
-               value="{{ request.form['is_animated'] or tv_show['is_animated'] }}"></input>
+               value="{{ request.form['is_animated'] or tvs['is_animated'] }}"></input>
         <br>
         
         
