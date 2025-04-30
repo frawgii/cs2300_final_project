@@ -36,7 +36,8 @@ CREATE TABLE users (
 );
 
 CREATE TABLE song (
-    s_title TEXT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    s_title TEXT UNIQUE NOT NULL,
     year_no INT NOT NULL,
     favorite BOOLEAN DEFAULT 0,
     star_amount FLOAT(24) DEFAULT 0,
@@ -52,7 +53,8 @@ CREATE TABLE song_singers (
 );
 
 CREATE TABLE game (
-    g_title TEXT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    g_title TEXT UNIQUE NOT NULL,
     year_no INT NOT NULL,
     favorite BOOLEAN DEFAULT 0,
     media_comment TEXT,
@@ -73,7 +75,8 @@ CREATE TABLE game_genres (
 );
 
 CREATE TABLE comic (
-    c_title TEXT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    c_title TEXT UNIQUE NOT NULL,
     year_no INT NOT NULL,
     favorite BOOLEAN DEFAULT 0,
     star_amount FLOAT(24) DEFAULT 0,
@@ -88,7 +91,8 @@ CREATE TABLE comic_artists (
 );
 
 CREATE TABLE tv_show (
-    tv_title TEXT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tv_title TEXT UNIQUE NOT NULL,
     year_no INT NOT NULL,
     favorite BOOLEAN DEFAULT 0,
     star_amount FLOAT(24) DEFAULT 0,
@@ -111,7 +115,8 @@ CREATE TABLE anim_animators (
 );
 
 CREATE TABLE movie (
-    mo_title TEXT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    mo_title TEXT UNIQUE NOT NULL,
     year_no INT NOT NULL,
     favorite BOOLEAN DEFAULT 0,
     star_amount FLOAT(24) DEFAULT 0,

@@ -220,7 +220,7 @@ def create_start():
 
 # HTML Pages for editing values
 
-@app.route('/<text:s_title>/edit/_song', methods=('GET', 'POST'))
+@app.route('/<int:id>/edit/_song', methods=('GET', 'POST'))
 def edit_song(s_title):
     songs = get_song(s_title)
 
