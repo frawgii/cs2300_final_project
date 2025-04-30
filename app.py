@@ -1,3 +1,4 @@
+#Imports and initializations
 from flask import Flask, render_template, request, url_for, flash, redirect, abort
 import sqlite3
 from flask import Flask, render_template
@@ -11,15 +12,6 @@ def get_db_connection():
     return conn
 
 #Fetching data from the entities
-def get_post(post_id):
-    conn = get_db_connection()
-    post = conn.execute('SELECT * FROM posts WHERE id = ?',
-                        (post_id,)).fetchone()
-    conn.close()
-    if post is None:
-        abort(404)
-    return post
-
 def get_song(id):
     conn = get_db_connection()
     songs = conn.execute('SELECT * FROM song WHERE id = ?',
@@ -70,7 +62,6 @@ def get_game(id):
 @app.route('/')
 def index():
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts').fetchall()
     users = conn.execute('SELECT * FROM users').fetchall()
     song = conn.execute('SELECT * FROM song').fetchall()
     tv_show = conn.execute('SELECT * FROM tv_show').fetchall()
@@ -78,55 +69,10 @@ def index():
     game = conn.execute('SELECT * FROM game').fetchall()
     comic = conn.execute('SELECT * FROM comic').fetchall()
     conn.close()
-    return render_template('index.html', posts=posts, users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show)
+    return render_template('index.html', users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show)
 
 
 #Pages for creating new values
-@app.route('/create/', methods=('GET', 'POST'))
-def create():
-    if request.method == 'POST':
-        title = request.form['title']
-        content = request.form['content']
-
-        if not title:
-            flash('Title is required!')
-        elif not content:
-            flash('Content is required!')
-        else:
-            conn = get_db_connection()
-            conn.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
-                         (title, content))
-            conn.commit()
-            conn.close()
-            return redirect(url_for('index'))
-    return render_template('create.html')
-
-@app.route('/<int:id>/edit/', methods=('GET', 'POST'))
-def edit(id):
-    post = get_post(id)
-
-    if request.method == 'POST':
-        title = request.form['title']
-        content = request.form['content']
-
-        if not title:
-            flash('Title is required!')
-
-        elif not content:
-            flash('Content is required!')
-
-        else:
-            conn = get_db_connection()
-            conn.execute('UPDATE posts SET title = ?, content = ?'
-                         ' WHERE id = ?',
-                         (title, content, id))
-            conn.commit()
-            conn.close()
-            return redirect(url_for('index'))
-    return render_template('edit.html', post=post)
-
-# HTML for creating pages
-
 @app.route('/create_song/', methods=('GET', 'POST'))
 def create_song():
     if request.method == 'POST':
@@ -253,13 +199,9 @@ def create_tvshow():
             return redirect(url_for('index'))
     return render_template('create_tvshow.html')
 
-@app.route('/create_start/')
-def create_start():
-    return render_template('create_start.html')
 
 
 #Pages for editing values
-
 @app.route('/<int:id>/edit_song/', methods=('GET', 'POST'))
 def edit_song(id):
     songs = get_song(id)
@@ -401,16 +343,8 @@ def edit_game(id):
             return redirect(url_for('index'))
     return render_template('edit_game.html', games=games)
 
-#Pages for deleting values
-@app.route('/<int:id>/delete/', methods=('POST',))
-def delete(id):
-    post = get_post(id)
-    conn = get_db_connection()
-    conn.execute('DELETE FROM posts WHERE id = ?', (id,))
-    conn.commit()
-    conn.close()
-    return redirect(url_for('index'))
 
+#Pages for deleting values
 @app.route('/<int:id>/delete_game/', methods=('POST',))
 def delete_game(id):
     games = get_game(id)

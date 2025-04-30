@@ -1,5 +1,4 @@
 -- Dropping tables in order if they exist to keep database consistent to project
-DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS character_appearances;
 DROP TABLE IF EXISTS media_has_character;
 DROP TABLE IF EXISTS crossover;
@@ -21,12 +20,6 @@ DROP TABLE IF EXISTS song;
 DROP TABLE IF EXISTS interacted_with;
 DROP TABLE IF EXISTS users;
 
-CREATE TABLE posts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    title TEXT NOT NULL,
-    content TEXT NOT NULL
-);
 
 CREATE TABLE users (
     username TEXT PRIMARY KEY,
