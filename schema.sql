@@ -152,7 +152,7 @@ CREATE TABLE character_info (
     char_id INT,
     journal_entry TEXT,
     abilities TEXT NOT NULL,
-    appeaarance TEXT,
+    appearance TEXT,
     FOREIGN KEY (char_id) REFERENCES media_character(ch_id) ON DELETE CASCADE
 );
 
