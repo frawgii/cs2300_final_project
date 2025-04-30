@@ -56,6 +56,15 @@ def get_movie(id):
         abort(404)
     return movies
 
+def get_game(id):
+    conn = get_db_connection()
+    games = conn.execute('SELECT * FROM game WHERE id = ?',
+                        (id,)).fetchone()
+    conn.close()
+    if games is None:
+        abort(404)
+    return games
+
 
 #Index page
 @app.route('/')
@@ -362,3 +371,30 @@ def edit_movie(id):
             conn.close()
             return redirect(url_for('index'))
     return render_template('edit_movie.html', movies=movies)
+
+@app.route('/<int:id>/edit_game/', methods=('GET', 'POST'))
+def edit_game(id):
+    games = get_game(id)
+
+    if request.method == 'POST':
+        g_title = request.form['g_title']
+        year_no = request.form['year_no']
+        favorite = request.form['favorite']
+        star_amount = request.form['star_amount']
+        media_comment = request.form['media_comment']
+
+        if not g_title:
+            flash('Title is required!')
+
+        elif not year_no:
+            flash('Content is required!')
+
+        else:
+            conn = get_db_connection()
+            conn.execute('UPDATE game SET g_title = ?, year_no = ?, favorite = ?, star_amount = ?, media_comment = ?'
+                         ' WHERE id = ?',
+                         (g_title, year_no, favorite, star_amount, media_comment, id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+    return render_template('edit_game.html', games=games)

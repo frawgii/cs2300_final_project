@@ -37,6 +37,8 @@
             <th>Star Amount &emsp;</th>
             <th>Song Length &emsp;</th>
             <th>Genre &emsp;</th>
+            <td><a href="{{ url_for('create_song') }}">Add New</a></td>
+
         </tr>
         {% for songs in song %}
         <tr>
@@ -61,6 +63,8 @@
             <th>Year &emsp; </th>
             <th>Star Amount &emsp;</th>
             <th>Comic Series &emsp;</th>
+            <td><a href="{{ url_for('create_comic') }}">Add New</a></td>
+
         </tr>
         {% for comics in comic %}
         <tr>
@@ -86,6 +90,8 @@
             <th>Season Count &emsp;</th>
             <th>CGI? &emsp;</th>
             <th>Animated? &emsp;</th>
+            <td><a href="{{ url_for('create_tvshow') }}">Add New</a></td>
+
         </tr>
         {% for tvs in tv_show %}
         <tr>
@@ -112,6 +118,8 @@
             <th>Year &emsp; </th>
             <th>Star Amount &emsp;</th>
             <th>Director &emsp;</th>
+            <td><a href="{{ url_for('create_movie') }}">Add New</a></td>
+
         </tr>
         {% for movies in movie %}
         <tr>
@@ -135,12 +143,15 @@
             <th>Game Title</th>
             <th>Year &emsp; </th>
             <th>Star Amount &emsp;</th>
+            <td><a href="{{ url_for('create_game') }}">Add New</a></td>
         </tr>
         {% for games in game %}
         <tr>
             <td>{{ games['g_title'] }}</td>
             <td>{{ games['year_no'] }}</td>
             <td>{{ games['star_amount'] }}</td>
+            <td><a href="{{ url_for('edit_game', id=games['id']) }}">Edit</a> </td>
+
         </tr>
         {% endfor %}
     </table>
