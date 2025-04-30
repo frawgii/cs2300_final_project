@@ -35,7 +35,7 @@
             <td>{{ songs['star_amount'] }}</td>
             <td>{{ songs['s_length'] }}</td>
             <td>{{ songs['s_genre'] }}</td>
-            <td><a href="{{ url_for('edit_song', id=songs['id']) }}">Edit</a> </td>
+            <td><a href="{{ url_for('edit_song', id=songs['id']) }}">Edit / Delete</a> </td>
         </tr>
         {% endfor %}
     </table>
@@ -60,7 +60,7 @@
             <td>{{ comics['year_no'] }}</td>
             <td>{{ comics['star_amount'] }}</td>
             <td>{{ comics['c_series'] }}</td>
-            <td><a href="{{ url_for('edit_comic', id=comics['id']) }}">Edit</a> </td>
+            <td><a href="{{ url_for('edit_comic', id=comics['id']) }}">Edit / Delete</a> </td>
         </tr>
         {% endfor %}
     </table>
@@ -89,7 +89,7 @@
             <td>{{ tvs['tv_season_count'] }}</td>
             <td>{{ tvs['is_cgi'] }}</td>
             <td>{{ tvs['is_animated'] }}</td>
-            <td><a href="{{ url_for('edit_tvshow', id=tvs['id']) }}">Edit</a> </td>
+            <td><a href="{{ url_for('edit_tvshow', id=tvs['id']) }}">Edit / Delete</a> </td>
 
         </tr>
         {% endfor %}
@@ -115,7 +115,7 @@
             <td>{{ movies['year_no'] }}</td>
             <td>{{ movies['star_amount'] }}</td>
             <td>{{ movies['mo_director'] }}</td>
-            <td><a href="{{ url_for('edit_movie', id=movies['id']) }}">Edit</a> </td>
+            <td><a href="{{ url_for('edit_movie', id=movies['id']) }}">Edit / Delete</a> </td>
 
         </tr>
         {% endfor %}
@@ -138,7 +138,7 @@
             <td>{{ games['g_title'] }}</td>
             <td>{{ games['year_no'] }}</td>
             <td>{{ games['star_amount'] }}</td>
-            <td><a href="{{ url_for('edit_game', id=games['id']) }}">Edit</a> </td>
+            <td><a href="{{ url_for('edit_game', id=games['id']) }}">Edit / Delete</a> </td>
 
         </tr>
         {% endfor %}
