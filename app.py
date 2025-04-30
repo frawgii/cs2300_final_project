@@ -10,6 +10,7 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+#Fetching data from the entities
 def get_post(post_id):
     conn = get_db_connection()
     post = conn.execute('SELECT * FROM posts WHERE id = ?',
@@ -18,6 +19,15 @@ def get_post(post_id):
     if post is None:
         abort(404)
     return post
+
+def get_song(s_title):
+    conn = get_db_connection()
+    songs = conn.execute('SELECT * FROM song WHERE s_title = ?',
+                        (s_title,)).fetchone()
+    conn.close()
+    if songs is None:
+        abort(404)
+    return songs
 
 @app.route('/')
 def index():
@@ -75,6 +85,7 @@ def edit(id):
             return redirect(url_for('index'))
     return render_template('edit.html', post=post)
 
+# HTML Pages for creating vpages
 
 @app.route('/create_song/', methods=('GET', 'POST'))
 def create_song():
@@ -205,3 +216,35 @@ def create_tvshow():
 @app.route('/create_start/')
 def create_start():
     return render_template('create_start.html')
+
+
+# HTML Pages for editing values
+
+@app.route('/<text:s_title>/edit/_song', methods=('GET', 'POST'))
+def edit_song(s_title):
+    songs = get_song(s_title)
+
+    if request.method == 'POST':
+        s_title = request.form['s_title']
+        year_no = request.form['year_no']
+        favorite = request.form['favorite']
+        star_amount = request.form['star_amount']
+        media_comment = request.form['media_comment']
+        s_length = request.form['s_length']
+        s_genre = request.form['s_genre']
+
+        if not s_title:
+            flash('Title is required!')
+
+        elif not year_no:
+            flash('Content is required!')
+
+        else:
+            conn = get_db_connection()
+            conn.execute('UPDATE song SET s_title = ?, year_no = ?, favorite = ?, star_amount = ?, media_comment = ?, s_length = ?, s_genre = ?'
+                         ' WHERE s_title = ?',
+                         (s_title, year_no, favorite, star_amount, media_comment, s_length, s_genre))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+    return render_template('edit_song.html', songs=songs)

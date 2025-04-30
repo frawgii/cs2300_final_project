@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block change_song %}
-    <h1>{% block song_change %} Edit "{{ song['s_title'] }}" {% endblock %}</h1>
+    <h1>{% block song_change %} Edit "{{ songs['s_title'] }}" {% endblock %}</h1>
     <form method="post">
         <label for="g_title">Song Title</label>
         <br>
