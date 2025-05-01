@@ -49,8 +49,8 @@ CREATE TABLE game (
 );
 
 CREATE TABLE heard_in (
-    s_id INT,
-    g_id INT,
+    s_id INT NOT NULL,
+    g_id INT NOT NULL,
     FOREIGN KEY (s_id) REFERENCES song(id) ON DELETE CASCADE,
     FOREIGN KEY (g_id) REFERENCES game(id) ON DELETE CASCADE
 );
@@ -90,7 +90,7 @@ CREATE TABLE cgi_actors (
 );
 
 CREATE TABLE anim_animators (
-    tv_id INT,
+    tv_id INT NOT NULL,
     anim_animator TEXT NOT NULL,
     FOREIGN KEY (tv_id) REFERENCES tv_show(id) ON DELETE CASCADE
 );

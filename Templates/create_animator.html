@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block create_animator %}
+<h1>{% block animator_title %} Add a New Animator {% endblock %}</h1>
+<form method="post">
+    <label for="tv_id">TV Show ID</label>
+    <br>
+    <input type="text" name="tv_id"
+           placeholder="TV Show ID"
+           value="{{ request.form['tv_id']}}"></input>
+    <br>
+
+    <label for="anim_animator">Animator Name</label>
+    <br>
+    <input type="text" name="anim_animator"
+           placeholder="Animator"
+           value="{{ request.form['anim_animator'] }}"></input>
+    <br>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
+
+{% block animator_create_title %} Here are the TV Show IDs: {% endblock %}
+
+{% block tv_id_info %}
+<h1>{% block tv_title %} TV Shows {% endblock %}</h1>
+<div class='tvs'>
+<table>
+    <tr>
+        <th>TV Show ID &emsp;</th>
+        <th>TV Show Title</th>
+    </tr>
+    {% for tvs in tv_show %}
+    <tr>
+        <td>{{ tvs['id'] }}</td>
+        <td>{{ tvs['tv_title'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

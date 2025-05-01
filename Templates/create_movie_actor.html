@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block add_movie_actor %}
+    <h1>{% block movie_actor_title %} Add a New Movie Actor {% endblock %}</h1>
+    <form method="post">
+        <label for="mo_id">Movie ID</label>
+        <br>
+        <input type="text" name="mo_id"
+               placeholder="Movie ID"
+               value="{{ request.form['mo_id']}}"></input>
+        <br>
+
+        <label for="mo_actor">Movie Actor Name</label>
+        <br>
+        <input type="text" name="mo_actor"
+               placeholder="Actor"
+               value="{{ request.form['mo_actor'] }}"></input>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
+
+{% block movie_actor_create_title %} Here are the Movie IDs: {% endblock %}
+
+{% block movie_id_info %}
+    <h1>{% block movie_title %} Movies {% endblock %}</h1>
+    <div class='movies'>
+    <table>
+        <tr>
+            <th>Movie ID &emsp;</th>
+            <th>Movie Title</th>
+        </tr>
+        {% for movies in movie %}
+        <tr>
+            <td>{{ movies['id'] }}</td>
+            <td>{{ movies['mo_title'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

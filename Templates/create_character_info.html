@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block add_char_info %}
+    <h1>{% block char_info_title %} Add New Character Information {% endblock %}</h1>
+    <form method="post">
+        <label for="char_id">Character ID</label>
+        <br>
+        <input type="text" name="char_id"
+               placeholder="Character ID"
+               value="{{ request.form['char_id']}}"></input>
+        <br>
+
+        <label for="journal_entry">Journal Entry</label>
+        <br>
+        <input type="text" name="journal_entry"
+               placeholder="Entry"
+               value="{{ request.form['journal_entry'] }}"></input>
+        <br>
+
+        <label for="abilities">Abilities</label>
+        <br>
+        <input type="text" name="abilities"
+               placeholder="Abilities"
+               value="{{ request.form['abilities'] }}"></input>
+        <br>
+
+        <label for="appearance">Appearance</label>
+        <br>
+        <input type="text" name="appearance"
+               placeholder="appearance"
+               value="{{ request.form['appearance'] }}"></input>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
+
+{% block char_info_create_title %} Here are the Character IDs: {% endblock %}
+
+{% block char_id_info %}
+    <h1>{% block character_title %} Characters {% endblock %}</h1>
+    <div class='chars'>
+    <table>
+        <tr>
+            <th>Character ID &emsp;</th>
+            <th>Character Name</th>
+        </tr>
+        {% for chars in media_character %}
+        <tr>
+            <td>{{ chars['id'] }}</td>
+            <td>{{ chars['ch_name'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
