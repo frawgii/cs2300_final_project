@@ -341,6 +341,27 @@ def create_interacted():
             return redirect(url_for('index'))
     return render_template('create_interacted.html')
 
+@app.route('/create_comic_artist/', methods=('GET', 'POST'))
+def create_comic_artist():
+    conn = get_db_connection()
+    comic = conn.execute('SELECT * FROM comic').fetchall()
+    if request.method == 'POST':
+        c_id = request.form['c_id']
+        c_artist = request.form['c_artist']
+
+        if not c_id:
+            flash('Comic ID is required!')
+        elif not c_artist:
+            flash('Comic artist is required!')
+        
+        else:
+            conn.execute('INSERT INTO comic_artists (c_id, c_artist) VALUES (?, ?)',
+                         (c_id, c_artist))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+    return render_template('create_comic_artist.html', comic=comic)
+
 
 
 #Pages for editing values

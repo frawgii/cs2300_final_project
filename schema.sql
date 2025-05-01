@@ -66,7 +66,7 @@ CREATE TABLE comic (
 );
 
 CREATE TABLE comic_artists (
-    c_id INT,
+    c_id INT NOT NULL,
     c_artist TEXT NOT NULL,
     FOREIGN KEY (c_id) REFERENCES comic(id) ON DELETE CASCADE
 );

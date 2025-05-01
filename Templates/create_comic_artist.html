@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block comic_artist_info %}
+    <h1>{% block comic_artist_title %} Add a New Comic Artist {% endblock %}</h1>
+    <form method="post">
+        <label for="c_id">Comic ID</label>
+        <br>
+        <input type="text" name="c_id"
+               placeholder="Comic ID"
+               value="{{ request.form['c_id']}}"></input>
+        <br>
+
+        <label for="c_artist">Comic Artist Name</label>
+        <br>
+        <input type="text" name="c_artist"
+               placeholder="Artist"
+               value="{{ request.form['c_artist'] }}"></input>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
+
+{% block comic_artist_create_title %} Here are the comic IDs: {% endblock %}
+
+{% block comic_id_info %}
+    <h1>{% block comic_title %} Comics {% endblock %}</h1>
+    <div class='comics'>
+    <table>
+        <tr>
+            <th>Comic ID &emsp;</th>
+            <th>Comic Title</th>
+        </tr>
+        {% for comics in comic %}
+        <tr>
+            <td>{{ comics['id'] }}</td>
+            <td>{{ comics['c_title'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

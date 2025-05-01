@@ -12,7 +12,7 @@
 
         nav a {
             color: #2c22ee;
-            font-size: 3em;
+            font-size: 2em;
             margin-left: 50px;
             text-decoration: none;
         }
@@ -28,8 +28,9 @@
 </head>
 <body>
     <nav>
-        <a href="{{ url_for('index') }}">View Media/Characters</a>
-        <a href="#">View Relationships</a>
+        <a href="{{ url_for('index') }}">Basic Media/Characters</a>
+        <a href="#">Additional Media/Character Info</a>
+        <a href="{{ url_for('relationships') }}">Relationships</a>
         <a href="#">Queries</a>
     </nav>
     <hr>
@@ -71,6 +72,30 @@
             <div class="alert">{{ message }}</div>
         {% endfor %}
         {% block tv_info %} {% endblock %}
+    </div>
+    <div class="crossover_info">
+        {% block crossover_info %} {% endblock %}
+    </div>
+    <div class="comic_artist_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block comic_artist_info %} {% endblock %}
+    </div>
+    <div class="relationships_title">
+        {% block relationships_title %} {% endblock %}
+    </div>
+    <div class="create_relationships">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block create_relationships %} {% endblock %}
+    </div>
+    <div class="comic_id_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block comic_id_info %} {% endblock %}
     </div>
     
 </body>

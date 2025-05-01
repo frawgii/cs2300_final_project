@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block relationships_title %} Create New Relationship or Attribute {% endblock %}
+
+{% block create_relationships %}
+<div class="dropdown">
+    <button class="dropbtn"><a href="{{ url_for('create_comic_artist') }}">Comic Artist</a></button>
+    <button class="dropbtn"><a href="{{ url_for('create_crossover') }}">Crossover</a></button>
+    </div>
+  </div>
+  {% endblock %}
