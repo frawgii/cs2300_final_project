@@ -51,6 +51,13 @@
                placeholder="Song genre"
                value="{{ request.form['s_genre'] or songs['s_genre'] }}"></input>
         <br>
+
+        <label for="s_singer">Song Artist</label>
+        <br>
+        <input type="text" name="s_singer"
+               placeholder="Singer"
+               value="{{ request.form['s_singer'] or songs['s_singer'] }}"></input>
+        <br>
         
         <button type="submit">Submit</button>
     </form>

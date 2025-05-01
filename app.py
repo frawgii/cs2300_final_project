@@ -83,6 +83,7 @@ def create_song():
         media_comment = request.form['media_comment']
         s_length = request.form['s_length']
         s_genre = request.form['s_genre']
+        s_singer = request.form['s_singer']
 
         if not s_title:
             flash('Song title is required!')
@@ -132,6 +133,7 @@ def create_game():
         favorite = request.form['favorite']
         star_amount = request.form['star_amount']
         media_comment = request.form['media_comment']
+        g_genre = request.form['g_genre']
 
         if not g_title:
             flash('Game title is required!')
@@ -214,6 +216,7 @@ def edit_song(id):
         media_comment = request.form['media_comment']
         s_length = request.form['s_length']
         s_genre = request.form['s_genre']
+        s_singer = request.form['s_singer']
 
         if not s_title:
             flash('Title is required!')
@@ -223,9 +226,9 @@ def edit_song(id):
 
         else:
             conn = get_db_connection()
-            conn.execute('UPDATE song SET s_title = ?, year_no = ?, favorite = ?, star_amount = ?, media_comment = ?, s_length = ?, s_genre = ?'
+            conn.execute('UPDATE song SET s_title = ?, year_no = ?, favorite = ?, star_amount = ?, media_comment = ?, s_length = ?, s_genre = ?, s_singer = ?'
                          ' WHERE id = ?',
-                         (s_title, year_no, favorite, star_amount, media_comment, s_length, s_genre, id))
+                         (s_title, year_no, favorite, star_amount, media_comment, s_length, s_genre, s_singer, id))
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
@@ -326,6 +329,7 @@ def edit_game(id):
         favorite = request.form['favorite']
         star_amount = request.form['star_amount']
         media_comment = request.form['media_comment']
+        g_genre = request.form['g_genre']
 
         if not g_title:
             flash('Title is required!')

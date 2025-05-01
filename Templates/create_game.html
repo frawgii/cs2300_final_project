@@ -38,6 +38,14 @@
                value="{{ request.form['media_comment'] }}"></input>
         <br>
 
+        <label for="g_genre">Game Genre</label>
+        <br>
+        <input type="text" name="g_genre"
+               placeholder="Genre"
+               value="{{ request.form['g_genre'] }}"></input>
+        <br>
+
+
         <button type="submit">Submit</button>
     </form>
 {% endblock %}

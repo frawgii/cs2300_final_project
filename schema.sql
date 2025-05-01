@@ -12,9 +12,7 @@ DROP TABLE IF EXISTS tv_show;
 DROP TABLE IF EXISTS heard_in;
 DROP TABLE IF EXISTS comic_artists;
 DROP TABLE IF EXISTS comic;
-DROP TABLE IF EXISTS game_genres;
 DROP TABLE IF EXISTS game;
-DROP TABLE IF EXISTS song_singers;
 DROP TABLE IF EXISTS song;
 DROP TABLE IF EXISTS interacted_with;
 DROP TABLE IF EXISTS users;
@@ -36,13 +34,8 @@ CREATE TABLE song (
     star_amount FLOAT(24) DEFAULT 0,
     media_comment TEXT,
     s_length FLOAT(24) NOT NULL,
-    s_genre TEXT
-);
-
-CREATE TABLE song_singers (
-    s_id INT,
-    s_singer TEXT NOT NULL,
-    FOREIGN KEY (s_id) REFERENCES song(id) ON DELETE CASCADE
+    s_genre TEXT,
+    s_singer TEXT
 );
 
 CREATE TABLE game (
@@ -51,19 +44,14 @@ CREATE TABLE game (
     year_no INT NOT NULL,
     favorite BOOLEAN DEFAULT 0,
     media_comment TEXT,
-    star_amount FLOAT(24) DEFAULT 0
+    star_amount FLOAT(24) DEFAULT 0,
+    g_genre TEXT
 );
 
 CREATE TABLE heard_in (
     s_id INT,
     g_id INT,
     FOREIGN KEY (s_id) REFERENCES song(id) ON DELETE CASCADE,
-    FOREIGN KEY (g_id) REFERENCES game(id) ON DELETE CASCADE
-);
-
-CREATE TABLE game_genres (
-    g_id INT,
-    g_genre TEXT NOT NULL,
     FOREIGN KEY (g_id) REFERENCES game(id) ON DELETE CASCADE
 );
 
@@ -193,17 +181,17 @@ INSERT INTO users (username, passwd, email, phone_no)
 VALUES
     ("sam_haj", "ilovecs2300", "sam@mst.edu", 3145551234);
 
-INSERT INTO song (s_title, year_no , favorite, star_amount, media_comment, s_length, s_genre)
+INSERT INTO song (s_title, year_no , favorite, star_amount, media_comment, s_length, s_genre, s_singer)
 VALUES 
-   ("Undefeatable", 2022, true, 5, "This song is a banger", 4.24, "Rock"),
-   ("Lights, Camera, Action!", 2017, true, 5, "Goes hard", 3.07, "Pop"),
-   ("Fist Bump", 2017, false, 3, "It's alright", 4.27, "Rock");
+   ("Undefeatable", 2022, true, 5, "This song is a banger", 4.24, "Rock", "Kellin Quinn"),
+   ("Lights, Camera, Action!", 2017, true, 5, "Goes hard", 3.07, "Pop", "Sonic Force Soundtrack"),
+   ("Fist Bump", 2017, false, 3, "It's alright", 4.27, "Rock", "Crush 40");
 
-INSERT INTO game (g_title, year_no, favorite, media_comment, star_amount)
+INSERT INTO game (g_title, year_no, favorite, media_comment, star_amount, g_genre)
 VALUES 
-   ("Sonic Forces", 2017, true, "Great game", 4.5),
-   ("Sonic Mania", 2017, true, "Best Sonic game", 5),
-   ("Sonic Heroes", 2003, false, "Not the best Sonic game", 3.5);
+   ("Sonic Forces", 2017, true, "Great game", 4.5, "3D Platformer"),
+   ("Sonic Mania", 2017, true, "Best Sonic game", 5, "2D Platformer"),
+   ("Sonic Heroes", 2003, false, "Not the best Sonic game", 3.5, "3D Mixed");
 
 INSERT INTO comic (c_title, year_no, favorite, star_amount, media_comment, c_series)
 VALUES
@@ -230,24 +218,9 @@ VALUES
     ("Amy Rose", "Hedgehog", "Pink", "Green", "Pink"),
     ("Shadow", "Hedgehog", "Black", "Red", "White");
 
-INSERT INTO song_singers (s_id, s_singer)
-VALUES
-    (1, "Kellin Quinn"),
-    (1, "Sonic Team"),
-    (2, "Sonic Forces Soundtrack"),
-    (3, "Crush 40");
-
 INSERT INTO heard_in(s_id, g_id)
 VALUES
     (2, 2);
-
-INSERT INTO game_genres(g_id, g_genre)
-VALUES
-    (1, "Platformer"),
-    (1, "3D"),
-    (2, "Platformer"),
-    (3, "Platformer"),
-    (3, "Beat 'Em Up");
 
 INSERT INTO comic_artists(c_id, c_artist)
 VALUES
