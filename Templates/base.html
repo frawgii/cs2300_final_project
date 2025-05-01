@@ -36,8 +36,11 @@
     <div class="user_info">
         {% block user_info %} {% endblock %}
     </div>
-    <div class="create_start_page">
-        {% block create_start_page %} {% endblock %}
+    <div class="character_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block character_info %} {% endblock %}
     </div>
     <div class="song_info">
         {% for message in get_flashed_messages() %}

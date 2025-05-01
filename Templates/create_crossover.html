@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block crossover_info %}
+    <h1>{% block crossover_title %} Add a New Crossover {% endblock %}</h1>
+    <form method="post">
+        <label for="g_id">Game ID</label>
+        <br>
+        <input type="int" name="g_id"
+               placeholder="Game ID"
+               value="{{ request.form['g_id'] }}"></input>
+        <br>
+
+        <label for="c_id">Comic ID</label>
+        <br>
+        <input type="int" name="c_id"
+               placeholder="Comic ID"
+               value="{{ request.form['c_id'] }}"></input>
+        <br>
+
+        <label for="char_id">Character ID</label>
+        <br>
+        <input type="int" name="char_id"
+               placeholder="Character ID"
+               value="{{ request.form['char_id'] }}"></input>
+        <br>
+
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

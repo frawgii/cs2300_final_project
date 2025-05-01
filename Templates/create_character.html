@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block character_info %}
+    <h1>{% block character_title %} Add a New Character {% endblock %}</h1>
+    <form method="post">
+        <label for="ch_name">Character Name</label>
+        <br>
+        <input type="text" name="ch_name"
+               placeholder="Character"
+               value="{{ request.form['ch_name'] }}"></input>
+        <br>
+
+        <label for="species">Species</label>
+        <br>
+        <input type="text" name="species"
+               placeholder="Species"
+               value="{{ request.form['species'] }}"></input>
+        <br>
+
+        <label for="fur_color">Fur Color</label>
+        <br>
+        <input type="text" name="fur_color"
+               placeholder="Fur Color"
+               value="{{ request.form['fur_color'] }}"></input>
+        <br>
+
+        <label for="eye_color">Eye Color</label>
+        <br>
+        <input type="text" name="eye_color"
+               placeholder="Eye Color"
+               value="{{ request.form['eye_color'] }}"></input>
+        <br>
+
+        <label for="fluff_color">Fluff Color</label>
+        <br>
+        <input type="text" name="fluff_color"
+               placeholder="Fluff Color"
+               value="{{ request.form['fluff_color'] }}"></input>
+        <br>
+
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

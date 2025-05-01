@@ -128,7 +128,7 @@ CREATE TABLE interacted_with (
 );
 
 CREATE TABLE media_character (
-    ch_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     ch_name TEXT UNIQUE NOT NULL,
     species TEXT NOT NULL,
     fur_color TEXT,
@@ -141,23 +141,23 @@ CREATE TABLE character_info (
     journal_entry TEXT,
     abilities TEXT NOT NULL,
     appearance TEXT,
-    FOREIGN KEY (char_id) REFERENCES media_character(ch_id) ON DELETE CASCADE
+    FOREIGN KEY (char_id) REFERENCES media_character(id) ON DELETE CASCADE
 );
 
 CREATE TABLE has_background (
-    char_id INT,
-    ch_info_id INT,
-    FOREIGN KEY (char_id) REFERENCES media_character(ch_id) ON DELETE CASCADE,
+    char_id INT NOT NULL,
+    ch_info_id INT NOT NULL,
+    FOREIGN KEY (char_id) REFERENCES media_character(id) ON DELETE CASCADE,
     FOREIGN KEY (ch_info_id) REFERENCES character_info(char_id) ON DELETE CASCADE
 );
 
 CREATE TABLE crossover (
-    g_id INT,
-    c_id INT,
-    char_id INT,
+    g_id INT NOT NULL,
+    c_id INT NOT NULL,
+    char_id INT NOT NULL,
     FOREIGN KEY (g_id) REFERENCES game(id) ON DELETE CASCADE,
     FOREIGN KEY (c_id) REFERENCES comic(id) ON DELETE CASCADE,
-    FOREIGN KEY (char_id) REFERENCES media_character(ch_id) ON DELETE CASCADE
+    FOREIGN KEY (char_id) REFERENCES media_character(id) ON DELETE CASCADE
 );
 
 CREATE TABLE media_has_character (
@@ -167,7 +167,7 @@ CREATE TABLE media_has_character (
     tv_id INT,
     mo_id INT,
     s_id INT,
-    FOREIGN KEY (ch_id) REFERENCES media_character(ch_id) ON DELETE CASCADE,
+    FOREIGN KEY (ch_id) REFERENCES media_character(id) ON DELETE CASCADE,
     FOREIGN KEY (g_id) REFERENCES game(id) ON DELETE CASCADE,
     FOREIGN KEY (c_id) REFERENCES comic(id) ON DELETE CASCADE,
     FOREIGN KEY (tv_id) REFERENCES tv_show(id) ON DELETE CASCADE,

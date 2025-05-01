@@ -57,8 +57,17 @@ def get_game(id):
         abort(404)
     return games
 
+def get_char(id):
+    conn = get_db_connection()
+    chars = conn.execute('SELECT * FROM media_character WHERE id = ?',
+                        (id,)).fetchone()
+    conn.close()
+    if chars is None:
+        abort(404)
+    return chars
 
-#Index page
+
+#"Home" pages
 @app.route('/')
 def index():
     conn = get_db_connection()
@@ -68,11 +77,25 @@ def index():
     movie = conn.execute('SELECT * FROM movie').fetchall()
     game = conn.execute('SELECT * FROM game').fetchall()
     comic = conn.execute('SELECT * FROM comic').fetchall()
+    media_character = conn.execute('SELECT * FROM media_character').fetchall()
     conn.close()
-    return render_template('index.html', users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show)
+    return render_template('index.html', users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show, media_character=media_character)
+
+@app.route('/relationships/')
+def relationships():
+    conn = get_db_connection()
+    users = conn.execute('SELECT * FROM users').fetchall()
+    song = conn.execute('SELECT * FROM song').fetchall()
+    tv_show = conn.execute('SELECT * FROM tv_show').fetchall()
+    movie = conn.execute('SELECT * FROM movie').fetchall()
+    game = conn.execute('SELECT * FROM game').fetchall()
+    comic = conn.execute('SELECT * FROM comic').fetchall()
+    media_character = conn.execute('SELECT * FROM media_character').fetchall()
+    conn.close()
+    return render_template('relationships.html', users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show, media_character=media_character)
 
 
-#Pages for creating new values
+#Pages for creating new entities
 @app.route('/create_song/', methods=('GET', 'POST'))
 def create_song():
     if request.method == 'POST':
@@ -142,8 +165,8 @@ def create_game():
 
         else:
             conn = get_db_connection()
-            conn.execute('INSERT INTO game (g_title, year_no, favorite, star_amount, media_comment) VALUES (?, ?, ?, ?, ?)',
-                         (g_title, year_no, favorite, star_amount, media_comment))
+            conn.execute('INSERT INTO game (g_title, year_no, favorite, star_amount, media_comment, g_genre) VALUES (?, ?, ?, ?, ?, ?)',
+                         (g_title, year_no, favorite, star_amount, media_comment, g_genre))
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
@@ -200,6 +223,123 @@ def create_tvshow():
             conn.close()
             return redirect(url_for('index'))
     return render_template('create_tvshow.html')
+
+@app.route('/create_character/', methods=('GET', 'POST'))
+def create_character():
+    if request.method == 'POST':
+        ch_name = request.form['ch_name']
+        species = request.form['species']
+        fur_color = request.form['fur_color']
+        eye_color = request.form['eye_color']
+        fluff_color = request.form['fluff_color']
+
+        if not ch_name:
+            flash('Character name is required!')
+        elif not species:
+            flash('Species is required!')
+        else:
+            conn = get_db_connection()
+            conn.execute('INSERT INTO media_character (ch_name, species, fur_color, eye_color, fluff_color) VALUES (?, ?, ?, ?, ?)',
+                         (ch_name, species, fur_color, eye_color, fluff_color))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+    return render_template('create_character.html')
+
+
+
+#Pages for creating new relationships
+@app.route('/create_crossover/', methods=('GET', 'POST'))
+def create_crossover():
+    conn = get_db_connection()
+    game = conn.execute('SELECT * FROM game').fetchall()
+    comic = conn.execute('SELECT * FROM comic').fetchall()
+    media_character = conn.execute('SELECT * FROM media_character').fetchall()
+    if request.method == 'POST':
+        g_id = request.form['g_id']
+        c_id = request.form['c_id']
+        char_id = request.form['char_id']
+
+        if not g_id:
+            flash('Game ID is required!')
+        elif not year_no:
+            flash('Comic ID is required!')
+        elif not tv_season_count:
+            flash('Character ID is required!')
+        else:
+            conn.execute('INSERT INTO crossover (g_id, c_id, char_id) VALUES (?, ?, ?)',
+                         (g_id, c_id, char_id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+    return render_template('create_crossover.html', game=game, comic=comic, media_character=media_character)
+
+@app.route('/create_media_w_char/', methods=('GET', 'POST'))
+def create_media_w_char():
+    if request.method == 'POST':
+        ch_id = request.form['ch_id']
+        g_id = request.form['g_id']
+        c_id = request.form['c_id']
+        tv_id = request.form['tv_id']
+        mo_id = request.form['mo_id']
+        s_id = request.form['s_id']
+
+        if not ch_id:
+            flash('Character ID is required!')
+        
+        else:
+            conn = get_db_connection()
+            conn.execute('INSERT INTO media_has_character (ch_id, g_id, c_id, tv_id, mo_id, s_id) VALUES (?, ?, ?, ?, ?, ?)',
+                         (ch_id, g_id, c_id, tv_id, mo_id, s_id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+    return render_template('create_media_w_char.html')
+
+@app.route('/create_has_bg/', methods=('GET', 'POST'))
+def create_has_bg():
+    if request.method == 'POST':
+        char_id = request.form['char_id']
+        ch_info_id = request.form['ch_info_id']
+
+        if not ch_id:
+            flash('Character ID is required!')
+        elif not ch_info_id:
+            flash('Character info ID is required!')
+        
+        else:
+            conn = get_db_connection()
+            conn.execute('INSERT INTO has_background (char_id, ch_info_id) VALUES (?, ?)',
+                         (char_id, ch_info_id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+    return render_template('create_has_bg.html')
+
+@app.route('/create_interacted/', methods=('GET', 'POST'))
+def create_interacted():
+    if request.method == 'POST':
+        u_username = request.form['u_username']
+        mo_id = request.form['mo_id']
+        c_id = request.form['c_id']
+        s_id = request.form['s_id']
+        g_id = request.form['g_id']
+        tv_id = request.form['tv_id']
+        date_of_interaction = request.form['date_of_interaction']
+
+        if not u_username:
+            flash('Username is required!')
+        elif not date_of_interaction:
+            flash('First date interacted is required!')
+        
+        else:
+            conn = get_db_connection()
+            conn.execute('INSERT INTO interacted_with (u_username, mo_id, c_id, s_id, g_id, tv_id, date_of_interaction) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                         (u_username, mo_id, c_id, s_id, g_id, tv_id, date_of_interaction))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+    return render_template('create_interacted.html')
 
 
 
@@ -347,6 +487,32 @@ def edit_game(id):
             return redirect(url_for('index'))
     return render_template('edit_game.html', games=games)
 
+@app.route('/<int:id>/edit_character/', methods=('GET', 'POST'))
+def edit_character(id):
+    chars = get_char(id)
+
+    if request.method == 'POST':
+        ch_name = request.form['ch_name']
+        species = request.form['species']
+        fur_color = request.form['fur_color']
+        eye_color = request.form['eye_color']
+        fluff_color = request.form['fluff_color']
+
+        if not ch_name:
+            flash('Name is required!')
+        elif not species:
+            flash('Species is required!')
+
+        else:
+            conn = get_db_connection()
+            conn.execute('UPDATE media_character SET ch_name = ?, species = ?, fur_color = ?, eye_color = ?, fluff_color = ?'
+                         ' WHERE id = ?',
+                         (ch_name, species, fur_color, eye_color, fluff_color, id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+    return render_template('edit_character.html', chars=chars)
+
 
 #Pages for deleting values
 @app.route('/<int:id>/delete_game/', methods=('POST',))
@@ -390,6 +556,15 @@ def delete_comic(id):
     comics = get_comic(id)
     conn = get_db_connection()
     conn.execute('DELETE FROM comic WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
+@app.route('/<int:id>/delete_char/', methods=('POST',))
+def delete_char(id):
+    chars = get_char(id)
+    conn = get_db_connection()
+    conn.execute('DELETE FROM media_character WHERE id = ?', (id,))
     conn.commit()
     conn.close()
     return redirect(url_for('index'))

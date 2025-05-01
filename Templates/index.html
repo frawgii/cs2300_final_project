@@ -149,3 +149,28 @@
     </table>
 </div>
 {% endblock %}
+
+{% block character_info %}
+    <h1>{% block character_title %} Characters {% endblock %}</h1>
+    <div class='chars'>
+    <table>
+        <tr>
+            <th>Character &emsp; </th>
+            <th>Fur Color &emsp; </th>
+            <th>Eye Color &emsp;</th>
+            <th>Fluff Color &emsp;</th>
+            <td><a href="{{ url_for('create_character') }}">Add New</a></td>
+        </tr>
+        {% for chars in media_character %}
+        <tr>
+            <td>{{ chars['ch_name'] }} the {{ chars['species'] }}</td>
+            <td>{{ chars['fur_color'] }}</td>
+            <td>{{ chars['eye_color'] }}</td>
+            <td>{{ chars['fluff_color'] }}</td>
+            <td><a href="{{ url_for('edit_character', id=chars['id']) }}">Edit / Delete</a> </td>
+
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
