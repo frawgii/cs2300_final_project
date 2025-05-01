@@ -262,9 +262,9 @@ def create_crossover():
 
         if not g_id:
             flash('Game ID is required!')
-        elif not year_no:
+        elif not c_id:
             flash('Comic ID is required!')
-        elif not tv_season_count:
+        elif not char_id:
             flash('Character ID is required!')
         else:
             conn.execute('INSERT INTO crossover (g_id, c_id, char_id) VALUES (?, ?, ?)',
@@ -605,6 +605,16 @@ def delete_char(id):
     chars = get_char(id)
     conn = get_db_connection()
     conn.execute('DELETE FROM media_character WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
+
+# SQL QUERIES TO EXECUTE
+@app.route('/total_secs/', methods=('POST',))
+def total_secs():
+    conn = get_db_connection()
+    conn.execute('SELECT SUM(s.s_length) FROM song s')
     conn.commit()
     conn.close()
     return redirect(url_for('index'))
