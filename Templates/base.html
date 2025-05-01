@@ -97,6 +97,30 @@
         {% endfor %}
         {% block comic_id_info %} {% endblock %}
     </div>
+    <div class="create_m_has_c">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block create_m_has_c %} {% endblock %}
+    </div>
+    <div class="add_char_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block add_char_info %} {% endblock %}
+    </div>
+    <div class="create_interaction">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block create_interaction %} {% endblock %}
+    </div>
+    <div class="char_id_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block char_id_info %} {% endblock %}
+    </div>
     
 </body>
 </html>

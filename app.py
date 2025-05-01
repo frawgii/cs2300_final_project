@@ -274,50 +274,70 @@ def create_crossover():
             return redirect(url_for('index'))
     return render_template('create_crossover.html', game=game, comic=comic, media_character=media_character)
 
-@app.route('/create_media_w_char/', methods=('GET', 'POST'))
-def create_media_w_char():
+@app.route('/create_m_has_c/', methods=('GET', 'POST'))
+def create_m_has_c():
+    conn = get_db_connection()
+    users = conn.execute('SELECT * FROM users').fetchall()
+    song = conn.execute('SELECT * FROM song').fetchall()
+    tv_show = conn.execute('SELECT * FROM tv_show').fetchall()
+    movie = conn.execute('SELECT * FROM movie').fetchall()
+    game = conn.execute('SELECT * FROM game').fetchall()
+    comic = conn.execute('SELECT * FROM comic').fetchall()
+    media_character = conn.execute('SELECT * FROM media_character').fetchall()
     if request.method == 'POST':
         ch_id = request.form['ch_id']
-        g_id = request.form['g_id']
-        c_id = request.form['c_id']
-        tv_id = request.form['tv_id']
         mo_id = request.form['mo_id']
+        c_id = request.form['c_id']
         s_id = request.form['s_id']
+        g_id = request.form['g_id']
+        tv_id = request.form['tv_id']
 
         if not ch_id:
             flash('Character ID is required!')
         
         else:
-            conn = get_db_connection()
+            
             conn.execute('INSERT INTO media_has_character (ch_id, g_id, c_id, tv_id, mo_id, s_id) VALUES (?, ?, ?, ?, ?, ?)',
                          (ch_id, g_id, c_id, tv_id, mo_id, s_id))
             conn.commit()
             conn.close()
-            return redirect(url_for('index'))
-    return render_template('create_media_w_char.html')
+            return redirect(url_for('relationships'))
+    return render_template('create_m_has_c.html', users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show, media_character=media_character)
 
-@app.route('/create_has_bg/', methods=('GET', 'POST'))
-def create_has_bg():
+@app.route('/create_character_info/', methods=('GET', 'POST'))
+def create_character_info():
+    conn = get_db_connection()
+    media_character = conn.execute('SELECT * FROM media_character').fetchall()
     if request.method == 'POST':
         char_id = request.form['char_id']
-        ch_info_id = request.form['ch_info_id']
+        journal_entry = request.form['journal_entry']
+        abilities = request.form['abilities']
+        appearance = request.form['appearance']
 
         if not ch_id:
             flash('Character ID is required!')
-        elif not ch_info_id:
-            flash('Character info ID is required!')
+        elif not journal_entry:
+            flash('Journal entry is required!')
         
         else:
-            conn = get_db_connection()
-            conn.execute('INSERT INTO has_background (char_id, ch_info_id) VALUES (?, ?)',
-                         (char_id, ch_info_id))
+            
+            conn.execute('INSERT INTO character_info (char_id, journal_entry, abilities, appearance) VALUES (?, ?, ?, ?)',
+                         (char_id, journal_entry, abilities, appearance))
             conn.commit()
             conn.close()
-            return redirect(url_for('index'))
-    return render_template('create_has_bg.html')
+            return redirect(url_for('relationships'))
+    return render_template('create_character_info.html', media_character=media_character)
 
-@app.route('/create_interacted/', methods=('GET', 'POST'))
-def create_interacted():
+@app.route('/create_interaction/', methods=('GET', 'POST'))
+def create_interaction():
+    conn = get_db_connection()
+    users = conn.execute('SELECT * FROM users').fetchall()
+    song = conn.execute('SELECT * FROM song').fetchall()
+    tv_show = conn.execute('SELECT * FROM tv_show').fetchall()
+    movie = conn.execute('SELECT * FROM movie').fetchall()
+    game = conn.execute('SELECT * FROM game').fetchall()
+    comic = conn.execute('SELECT * FROM comic').fetchall()
+    media_character = conn.execute('SELECT * FROM media_character').fetchall()
     if request.method == 'POST':
         u_username = request.form['u_username']
         mo_id = request.form['mo_id']
@@ -333,13 +353,12 @@ def create_interacted():
             flash('First date interacted is required!')
         
         else:
-            conn = get_db_connection()
             conn.execute('INSERT INTO interacted_with (u_username, mo_id, c_id, s_id, g_id, tv_id, date_of_interaction) VALUES (?, ?, ?, ?, ?, ?, ?)',
                          (u_username, mo_id, c_id, s_id, g_id, tv_id, date_of_interaction))
             conn.commit()
             conn.close()
-            return redirect(url_for('index'))
-    return render_template('create_interacted.html')
+            return redirect(url_for('relationships'))
+    return render_template('create_interaction.html', users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show, media_character=media_character)
 
 @app.route('/create_comic_artist/', methods=('GET', 'POST'))
 def create_comic_artist():

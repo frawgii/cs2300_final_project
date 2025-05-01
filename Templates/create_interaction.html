@@ -56,24 +56,22 @@
 {% endblock %}
 
 
-{% interaction_title %} Here is the list of IDs: {% endblock %}
+{% block interaction2_title %} Here is the list of IDs: {% endblock %}
 
 {% block user_info %}
     <h1>{% block user_title %} User Information {% endblock %}</h1>
-    {% for user in users %}
-        <div class='user'>
-            <table>
-                <tr>
-                    <th>Username</th>
-                </tr>
-                {% for user in users %}
-                <tr>
-                    <td>{{ user['username'] }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-    {% endfor %}
+    <div class='user'>
+        <table>
+            <tr>
+                <th>Username</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{ user['username'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}
 
 {% block song_info %}
