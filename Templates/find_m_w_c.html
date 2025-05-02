@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block f_m_w_c %}
+    <h1>{% block comic_title %} Find Media with Certain Character {% endblock %}</h1>
+    <form method="post">
+        <label for="ch_name">Character Name</label>
+        <br>
+         <input type="text" name="ch_name"
+           placeholder="Name"
+           value="{{ request.form['ch_name'] }}"></input>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

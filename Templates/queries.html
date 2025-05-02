@@ -42,9 +42,9 @@
     <div class='user_driven_query_results'>
         <table>
             <tr><b>Find Media with Certain Character</b></tr><br>
-            <tr><b>Find Media With Characters with Specified Fur Color </b>  </tr><br>
-            <tr><b>Find Media With Characters with Specified Species </b>  </tr><br>
-            
+            <tr><button class="dropbtn"><a href="{{ url_for('find_m_w_c') }}">Find Media with Certain Character</a></button></tr><br>
+            <tr><button class="dropbtn"><a href="{{ url_for('find_c_w_f') }}">Find Characters with Specified Fur Color</a></button></tr><br>
+            <tr><button class="dropbtn"><a href="{{ url_for('find_c_w_s') }}">Find Characters with Specified Species</a></button></tr><br>
         </table>
     </div>
 {% endblock %}

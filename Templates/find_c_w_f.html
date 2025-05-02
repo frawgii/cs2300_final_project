@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block f_c_w_f %}
+    <h1>{% block comic_title %} Find Characters With Certain Fur Color {% endblock %}</h1>
+    <form method="post">
+        <label for="fur_color">Fur Color</label>
+        <br>
+         <input type="text" name="fur_color"
+           placeholder="Color"
+           value="{{ request.form['fur_color'] }}"></input>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

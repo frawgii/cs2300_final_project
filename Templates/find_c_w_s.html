@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block f_c_w_s %}
+    <h1>{% block comic_title %} Find Characters With Certain Species {% endblock %}</h1>
+    <form method="post">
+        <label for="species">Species</label>
+        <br>
+         <input type="text" name="species"
+           placeholder="Species"
+           value="{{ request.form['species'] }}"></input>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

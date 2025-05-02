@@ -657,15 +657,6 @@ def delete_char(id):
     conn.close()
     return redirect(url_for('index'))
 
-@app.route('/<int:id>/delete_crossover/', methods=('POST',))
-def delete_crossover(id):
-    crosses = get_crossover(id)
-    conn = get_db_connection()
-    conn.execute('DELETE FROM crossover WHERE g_id = ? AND c_id = ? AND char_id = ?', (id,))
-    conn.commit()
-    conn.close()
-    return redirect(url_for('relationships'))
-
 
 # SQL QUERIES TO EXECUTE
 @app.route('/queries/', methods=('GET', 'POST'))
@@ -860,3 +851,64 @@ def more_info():
     conn.close()
     return render_template('more_info.html', users=users, song=song, cgi_shows=cgi_shows, movie=movie,\
                             game=game, anim_shows=anim_shows, comic=comic, media_character=media_character)
+
+
+#User driven queries
+@app.route('/find_m_w_c/', methods=('GET', 'POST'))
+def find_m_w_c():
+    if request.method == 'POST':
+        mch_name = request.form['ch_name']
+        conn = get_db_connection()
+        curs = conn.cursor()
+        curs.execute('SELECT m.c_id, m.mo_id, m.g_id, m.tv_id, m.s_id FROM media_has_character m, media_character c \
+                     WHERE m.ch_id=c.id AND c.ch_name=?', (mch_name,))
+        media = curs.fetchall()
+        for i in media:
+            if i['g_id'] != None:
+                flash('Game ID: ' + str(i['g_id']))
+            elif i['c_id'] != None:
+                flash('Comic ID: ' + str(i['c_id']))
+            elif i['tv_id'] != None:
+                flash('TV ID: ' + str(i['tv_id']))
+            elif i['s_id'] != None:
+                flash('Song ID: ' + str(i['s_id']))
+            elif i['mo_id'] != None:
+                flash('Movie ID: ' + str(i['mo_id']))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('find_m_w_c'))
+    return render_template('find_m_w_c.html')
+
+@app.route('/find_c_w_f/', methods=('GET', 'POST'))
+def find_c_w_f():
+    if request.method == 'POST':
+        cfur_color = request.form['fur_color']
+        conn = get_db_connection()
+        curs = conn.cursor()
+        curs.execute('SELECT c.ch_name FROM media_character c WHERE fur_color=?', (cfur_color,))
+        chars = curs.fetchall()
+        for i in chars:
+            flash('Character Name: ' + str(i['ch_name']))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('find_c_w_f'))
+    return render_template('find_c_w_f.html')
+
+@app.route('/find_c_w_s/', methods=('GET', 'POST'))
+def find_c_w_s():
+    if request.method == 'POST':
+        cspecies = request.form['species']
+        conn = get_db_connection()
+        curs = conn.cursor()
+        curs.execute('SELECT c.ch_name FROM media_character c WHERE species=?', (cspecies,))
+        chars = curs.fetchall()
+        for i in chars:
+            flash('Character Name: ' + str(i['ch_name']))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('find_c_w_s'))
+    return render_template('find_c_w_s.html')
+
+
+
+
