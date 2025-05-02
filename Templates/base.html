@@ -133,6 +133,42 @@
         {% endfor %}
         {% block more_query_info %} {% endblock %}
     </div>
+    <div class="user_driven_query">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block user_driven_query %} {% endblock %}
+    </div>
+    <div class="song_query_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block song_query_info %} {% endblock %}
+    </div>
+    <div class="movie_query_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block movie_query_info %} {% endblock %}
+    </div>
+    <div class="tv_query_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block tv_query_info %} {% endblock %}
+    </div>
+    <div class="comic_query_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block comic_query_info %} {% endblock %}
+    </div>
+    <div class="game_query_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block game_query_info %} {% endblock %}
+    </div>
     
 </body>
 </html>

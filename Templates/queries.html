@@ -12,6 +12,11 @@
             <tr><b>Oldest Year of Media Interacted With:</b> {{ min_year }}</tr><br>
             <tr><b>Newest Year of Media Interacted With:</b> {{ max_year }}</tr><br>
             <tr><b>Total Number of Media Interacted With:</b> {{ row_count }}</tr><br>
+            <tr><button class="dropbtn"><a href="{{ url_for('song_queries') }}">Song Specific Queries</a></button></tr><br>
+            <tr><button class="dropbtn"><a href="{{ url_for('movie_queries') }}">Movie Specific Queries</a></button></tr><br>
+            <tr><button class="dropbtn"><a href="{{ url_for('tv_queries') }}">TV Show Specific Queries</a></button></tr><br>
+            <tr><button class="dropbtn"><a href="{{ url_for('comic_queries') }}">Comic Specific Queries</a></button></tr><br>
+            <tr><button class="dropbtn"><a href="{{ url_for('game_queries') }}">Game Specific Queries</a></button></tr><br>
     </table>
     </div>
     <br>
@@ -21,28 +26,25 @@
     <h2>{% block more_query_title %} Other Queries {% endblock %}</h2>
     <div class='query_results_2'>
         <table>
-            <tr><b>Favorite Songs: </b> </tr><br>
-            <tr><b>Favorite Games: </b> </tr><br>
-            <tr><b>Favorite Movies: </b> </tr><br>
-            <tr><b>Favorite TV Shows: </b> </tr><br>
-            <tr><b>Favorite Books: </b> </tr><br>
-            <tr><b>Actors in Both a Movie and TV Show: </b></tr>
-            <tr><b>Characters in All Games:</b></tr>
+            <tr><b>Favorite Songs: </b> {% for row in fav_s %} {{ row[0] }}, {% endfor %}</tr><br>
+            <tr><b>Favorite Games: </b> {% for row in fav_g %} {{ row[0] }}, {% endfor %} </tr><br>
+            <tr><b>Favorite Movies: </b> {% for row in fav_mo %} {{ row[0] }}, {% endfor %} </tr><br>
+            <tr><b>Favorite TV Shows: </b> {% for row in fav_tv %} {{ row[0] }}, {% endfor %} </tr><br>
+            <tr><b>Favorite Comics: </b> {% for row in fav_c %} {{ row[0] }}, {% endfor %} </tr><br>
+            <tr><b>Actors in Both a Movie and TV Show: </b> {% for row in actor_list %} {{ row[0] }}, {% endfor %} </tr><br>
+            <tr><b>Characters That Are in All Games:</b> {% for row in all_char %} {{ row[0] }}, {% endfor %}</tr>
             <tr><b></b></tr>
         </table>
 {% endblock %}
 
-{% user_driven_query %}
+{% block user_driven_query %}
     <h2>{% block user_driven_query_title %} User Driven Query Results {% endblock %}</h2>
     <div class='user_driven_query_results'>
         <table>
+            <tr><b>Find Media with Certain Character</b></tr><br>
             <tr><b>Find Media With Characters with Specified Fur Color </b>  </tr><br>
-            <tr><b>Find Media With Characters with Specified Hair Species </b>  </tr><br>
-            <tr><b>Game Specific Queries</b></tr><br>
-            <tr><b>Movie Specific Queries</b></tr><br>
-            <tr><b>TV Show Specific Queries</b></tr><br>
-            <tr><b>Comic Specific Queries</b></tr><br>
-            <tr><b>Song Specific Queries</b></tr><br>
+            <tr><b>Find Media With Characters with Specified Species </b>  </tr><br>
+            
         </table>
     </div>
 {% endblock %}

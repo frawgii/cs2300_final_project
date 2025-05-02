@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block game_query_info %}
+    <h2>{% block query_title %} Aggregation Game Query Results {% endblock %}</h2>
+    <div class='query_results'>
+        <table>
+            <tr><b>Average Star Rating for Games:</b> {{ avg_star }} </tr><br>
+            <tr><b>Minimum Star Rating for Games:</b> {{ min_star }}</tr><br>
+            <tr><b>Maximum Star Rating for Games:</b> {{ max_star }}</tr><br>
+            <tr><b>Oldest Year of Game Interacted With:</b> {{ min_year }}</tr><br>
+            <tr><b>Newest Year of Game Interacted With:</b> {{ max_year }}</tr><br>
+            <tr><b>Total Number of Games Interacted With:</b> {{ row_count }}</tr><br>
+    </table>
+    </div>
+    <br>
+{% endblock %}

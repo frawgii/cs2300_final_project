@@ -1,7 +1,6 @@
 #Imports and initializations
 from flask import Flask, render_template, request, url_for, flash, redirect, abort
 import sqlite3
-from flask import Flask, render_template
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SonicFansUnite'
@@ -637,8 +636,121 @@ def queries():
     fav_mo = curs.fetchall()
     curs.execute('SELECT s_title FROM song s WHERE s.favorite = 1')
     fav_s = curs.fetchall()
+    curs.execute('SELECT DISTINCT cgi.cgi_actor FROM cgi_actors cgi, tv_show tv, movie mo, movie_actors ma WHERE cgi.tv_id = tv.id AND mo.id = ma.mo_id AND cgi.cgi_actor = ma.mo_actor')
+    actor_list = curs.fetchall()
+    #curs.execute('SELECT ch.ch_name FROM media_character ch WHERE NOT EXISTS ((SELECT m.ch_id FROM media_has_character m) EXCEPT (SELECT mc.id FROM media_character mc WHERE ch.id=mc.id))')
+    #all_char = curs.fetchall()
     conn.commit()
     conn.close()
     return render_template('queries.html', sum_len=sum_len, avg_len=avg_len, avg_star=avg_star, min_star=min_star, max_star=max_star,\
                              min_year=min_year, max_year=max_year, row_count=row_count, fav_g=fav_g, fav_c=fav_c, fav_tv=fav_tv,\
-                              fav_mo=fav_mo, fav_s=fav_s)
+                              fav_mo=fav_mo, fav_s=fav_s, actor_list=actor_list)
+
+@app.route('/song_queries/', methods=('GET', 'POST'))
+def song_queries():
+    conn = get_db_connection()
+    curs = conn.cursor()
+    curs.execute('SELECT sum(s.s_length) FROM song s')
+    sum_len = curs.fetchone()[0]
+    curs.execute('SELECT avg(s.s_length) FROM song s')
+    avg_len = curs.fetchone()[0]
+    curs.execute('SELECT avg(s.star_amount) FROM song s')
+    avg_star = curs.fetchone()[0]
+    curs.execute('SELECT min(s.star_amount) FROM song s')
+    min_star = curs.fetchone()[0]
+    curs.execute('SELECT max(s.star_amount) FROM song s')
+    max_star = curs.fetchone()[0]
+    curs.execute('SELECT min(s.year_no)FROM song s')
+    min_year = curs.fetchone()[0]
+    curs.execute('SELECT max(s.year_no)FROM song s')
+    max_year = curs.fetchone()[0]
+    curs.execute('SELECT count(*) FROM song s')
+    row_count = curs.fetchone()[0]
+    conn.commit()
+    conn.close()
+    return render_template('song_queries.html', sum_len=sum_len, avg_len=avg_len, avg_star=avg_star, min_star=min_star, max_star=max_star,\
+                             min_year=min_year, max_year=max_year, row_count=row_count)
+
+@app.route('/movie_queries/', methods=('GET', 'POST'))
+def movie_queries():
+    conn = get_db_connection()
+    curs = conn.cursor()
+    curs.execute('SELECT avg(mo.star_amount) FROM movie mo')
+    avg_star = curs.fetchone()[0]
+    curs.execute('SELECT min(mo.star_amount) FROM movie mo')
+    min_star = curs.fetchone()[0]
+    curs.execute('SELECT max(mo.star_amount) FROM movie mo')
+    max_star = curs.fetchone()[0]
+    curs.execute('SELECT min(mo.year_no)FROM movie mo')
+    min_year = curs.fetchone()[0]
+    curs.execute('SELECT max(mo.year_no)FROM movie mo')
+    max_year = curs.fetchone()[0]
+    curs.execute('SELECT count(*) FROM movie mo')
+    row_count = curs.fetchone()[0]
+    conn.commit()
+    conn.close()
+    return render_template('movie_queries.html', avg_star=avg_star, min_star=min_star, max_star=max_star,\
+                             min_year=min_year, max_year=max_year, row_count=row_count)
+
+@app.route('/tv_queries/', methods=('GET', 'POST'))
+def tv_queries():
+    conn = get_db_connection()
+    curs = conn.cursor()
+    curs.execute('SELECT avg(tv.star_amount) FROM tv_show tv')
+    avg_star = curs.fetchone()[0]
+    curs.execute('SELECT min(tv.star_amount) FROM tv_show tv')
+    min_star = curs.fetchone()[0]
+    curs.execute('SELECT max(tv.star_amount) FROM tv_show tv')
+    max_star = curs.fetchone()[0]
+    curs.execute('SELECT min(tv.year_no)FROM tv_show tv')
+    min_year = curs.fetchone()[0]
+    curs.execute('SELECT max(tv.year_no)FROM tv_show tv')
+    max_year = curs.fetchone()[0]
+    curs.execute('SELECT count(*) FROM tv_show tv')
+    row_count = curs.fetchone()[0]
+    conn.commit()
+    conn.close()
+    return render_template('tv_queries.html', avg_star=avg_star, min_star=min_star, max_star=max_star,\
+                             min_year=min_year, max_year=max_year, row_count=row_count)
+
+@app.route('/comic_queries/', methods=('GET', 'POST'))
+def comic_queries():
+    conn = get_db_connection()
+    curs = conn.cursor()
+    curs.execute('SELECT avg(c.star_amount) FROM comic c')
+    avg_star = curs.fetchone()[0]
+    curs.execute('SELECT min(c.star_amount) FROM comic c')
+    min_star = curs.fetchone()[0]
+    curs.execute('SELECT max(c.star_amount) FROM comic c')
+    max_star = curs.fetchone()[0]
+    curs.execute('SELECT min(c.year_no)FROM comic c')
+    min_year = curs.fetchone()[0]
+    curs.execute('SELECT max(c.year_no)FROM comic c')
+    max_year = curs.fetchone()[0]
+    curs.execute('SELECT count(*) FROM comic c')
+    row_count = curs.fetchone()[0]
+    conn.commit()
+    conn.close()
+    return render_template('comic_queries.html', avg_star=avg_star, min_star=min_star, max_star=max_star,\
+                             min_year=min_year, max_year=max_year, row_count=row_count)
+
+@app.route('/game_queries/', methods=('GET', 'POST'))
+def game_queries():
+    conn = get_db_connection()
+    curs = conn.cursor()
+    curs.execute('SELECT avg(g.star_amount) FROM game g')
+    avg_star = curs.fetchone()[0]
+    curs.execute('SELECT min(g.star_amount) FROM game g')
+    min_star = curs.fetchone()[0]
+    curs.execute('SELECT max(g.star_amount) FROM game g')
+    max_star = curs.fetchone()[0]
+    curs.execute('SELECT min(g.year_no)FROM game g')
+    min_year = curs.fetchone()[0]
+    curs.execute('SELECT max(g.year_no)FROM game g')
+    max_year = curs.fetchone()[0]
+    curs.execute('SELECT count(*) FROM game g')
+    row_count = curs.fetchone()[0]
+    conn.commit()
+    conn.close()
+    return render_template('game_queries.html', avg_star=avg_star, min_star=min_star, max_star=max_star,\
+                             min_year=min_year, max_year=max_year, row_count=row_count)
