@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block query_info %}
+    <h2>{% block query_title %} Aggregation Query Results {% endblock %}</h2>
+    <div class='query_results'>
+        <table>
+            <tr>Total Length of Songs Listened To (in seconds): {{sum_length}} </tr><br>
+            <tr>Average Length of Songs Listened To (in seconds): {{avg_length}} </tr><br>
+            <tr>Average Star Rating for All Media: </tr><br>
+            <tr>Minimum Star Rating for All Media:</tr><br>
+            <tr>Maximum Star Rating for All Media:</tr><br>
+            <tr>Oldest Year of Media Interacted With:</tr><br>
+            <tr>Newest Year of Media Interacted With:</tr><br>
+            <tr>Total Number of Media Interacted With:</tr><br>
+    </table>
+    </div>
+{% endblock %}
+
+{% block more_query_info %}
+    <h2>{% block more_query_title %} Other Queries {% endblock %}</h2>
+{% endblock %}

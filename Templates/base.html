@@ -31,7 +31,7 @@
         <a href="{{ url_for('index') }}">Basic Media/Characters</a>
         <a href="#">Additional Media/Character Info</a>
         <a href="{{ url_for('relationships') }}">Relationships</a>
-        <a href="#">Queries</a>
+        <a href="{{ url_for('queries') }}">Queries</a>
     </nav>
     <hr>
     <div class="user_info">
@@ -120,6 +120,12 @@
             <div class="alert">{{ message }}</div>
         {% endfor %}
         {% block char_id_info %} {% endblock %}
+    </div>
+    <div class="query_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block query_info %} {% endblock %}
     </div>
     
 </body>

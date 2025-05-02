@@ -611,10 +611,21 @@ def delete_char(id):
 
 
 # SQL QUERIES TO EXECUTE
-@app.route('/total_secs/', methods=('POST',))
-def total_secs():
+@app.route('/queries/', methods=('GET', 'POST'))
+def queries():
     conn = get_db_connection()
-    conn.execute('SELECT SUM(s.s_length) FROM song s')
+    users = conn.execute('SELECT * FROM users').fetchall()
+    song = conn.execute('SELECT * FROM song').fetchall()
+    tv_show = conn.execute('SELECT * FROM tv_show').fetchall()
+    movie = conn.execute('SELECT * FROM movie').fetchall()
+    game = conn.execute('SELECT * FROM game').fetchall()
+    comic = conn.execute('SELECT * FROM comic').fetchall()
+    media_character = conn.execute('SELECT * FROM media_character').fetchall()
+    curs = conn.cursor()
+    curs.execute('SELECT sum(s.s_length) FROM song s')
+    sum_length = curs.fetchone()[0]
+    curs.execute('SELECT avg(s.s_length) FROM song s')
+    avg_length = curs.fetchone()[0]
     conn.commit()
     conn.close()
-    return redirect(url_for('index'))
+    return render_template('queries.html', sum_length=sum_length, avg_length=avg_length, users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show, media_character=media_character)
