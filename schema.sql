@@ -118,7 +118,6 @@ CREATE TABLE interacted_with (
     s_id INT,
     g_id INT,
     tv_id INT,
-    date_of_interaction TEXT NOT NULL,
     FOREIGN KEY (u_username) REFERENCES users(username) ON DELETE CASCADE,
     FOREIGN KEY (mo_id) REFERENCES movie(id) ON DELETE CASCADE,
     FOREIGN KEY (c_id) REFERENCES comic(id) ON DELETE CASCADE,
@@ -183,20 +182,26 @@ VALUES
 
 INSERT INTO song (s_title, year_no , favorite, star_amount, media_comment, s_length, s_genre, s_singer)
 VALUES 
-   ("Undefeatable", 2022, true, 5, "This song is a banger", 4.24, "Rock", "Kellin Quinn"),
-   ("Lights, Camera, Action!", 2017, true, 5, "Goes hard", 3.07, "Pop", "Sonic Force Soundtrack"),
-   ("Fist Bump", 2017, false, 3, "It's alright", 4.27, "Rock", "Crush 40");
+   ("Undefeatable", 2022, true, 4.9, "This song is a banger", 248, "Rock", "Kellin Quinn"),
+   ("Lights, Camera, Action!", 2017, true, 4.8, "Goes hard", 187, "Pop", "Sonic Force Soundtrack"),
+   ("Fist Bump", 2017, false, 2.1, "It's alright", 267, "Rock", "Crush 40"),
+    ("I Am... All of Me", 2014, true, 4.3, "Great song", 240, "Metal", "Crush 40"),
+    ("Live and Learn", 2001, true, 3.6, "Best Sonic song", 301, "Rock", "Sonic Team");
 
 INSERT INTO game (g_title, year_no, favorite, media_comment, star_amount, g_genre)
 VALUES 
    ("Sonic Forces", 2017, true, "Great game", 4.5, "3D Platformer"),
    ("Sonic Mania", 2017, true, "Best Sonic game", 5, "2D Platformer"),
-   ("Sonic Heroes", 2003, false, "Not the best Sonic game", 3.5, "3D Mixed");
+   ("Sonic Heroes", 2003, false, "Not the best Sonic game", 3.5, "3D Mixed"),
+   ("Sonic Adventure 2", 2001, true, "Great game", 4.8, "3D Mixed"),
+   ("Team Sonic Racing", 2015, false, "Terrible to drive", 1.3, "Kart Race");
 
 INSERT INTO comic (c_title, year_no, favorite, star_amount, media_comment, c_series)
 VALUES
     ("Sonic the Hedgehog, Vol. 1: Fallout", 2018, false, 4.2, "Great start", "Arc 1"),
-    ("Tangle and Whisper", 2019, true, 4.9, "Awesome characters", "Spinoff");
+    ("Tangle and Whisper", 2019, true, 4.9, "Awesome characters", "Spinoff"),
+    ("Sonic: Modern Era", 2021, false, 3.2, "Not the best", "Archie"),
+    ("Sonic the Hedgehog #8", 2018, true, 4.3, "Unique story", "Metal Virus");
 
 INSERT INTO tv_show (tv_title, year_no, favorite, star_amount, media_comment, tv_season_count, is_cgi, is_animated)
 VALUES
@@ -249,16 +254,40 @@ VALUES
     (3, "Ben Schwartz"),
     (3, "James Marsden");
 
-INSERT INTO interacted_with(u_username, mo_id, date_of_interaction)
+INSERT INTO interacted_with(u_username, mo_id)
 VALUES
-    ("sam_haj", 1, "2023-10-01"),
-    ("sam_haj", 2, "2023-10-02"),
-    ("sam_haj", 3, "2023-10-03");
+    ("sam_haj", 1),
+    ("sam_haj", 2),
+    ("sam_haj", 3);
 
-INSERT INTO interacted_with(u_username, c_id, date_of_interaction)
+INSERT INTO interacted_with(u_username, c_id)
 VALUES
-    ("sam_haj", 1, "2023-10-04"),
-    ("sam_haj", 2, "2023-10-05");
+    ("sam_haj", 1),
+    ("sam_haj", 2),
+    ("sam_haj", 3),
+    ("sam_haj", 4);
+
+INSERT INTO interacted_with(u_username, s_id)
+VALUES
+    ("sam_haj", 1),
+    ("sam_haj", 2),
+    ("sam_haj", 3),
+    ("sam_haj", 4),
+    ("sam_haj", 5);
+
+INSERT INTO interacted_with(u_username, g_id)
+VALUES
+    ("sam_haj", 1),
+    ("sam_haj", 2),
+    ("sam_haj", 3),
+    ("sam_haj", 4),
+    ("sam_haj", 5);
+
+INSERT INTO interacted_with(u_username, tv_id)
+VALUES
+    ("sam_haj", 1),
+    ("sam_haj", 2),
+    ("sam_haj", 3);
 
 INSERT INTO character_info(char_id, journal_entry, abilities, appearance)
 VALUES

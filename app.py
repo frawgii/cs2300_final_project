@@ -118,6 +118,10 @@ def create_song():
             conn = get_db_connection()
             conn.execute('INSERT INTO song (s_title, year_no, favorite, star_amount, media_comment, s_length, s_genre) VALUES (?, ?, ?, ?, ?, ?, ?)',
                          (s_title, year_no, favorite, star_amount, media_comment, s_length, s_genre))
+            song_id = conn.execute('SELECT s.id FROM song s WHERE s.s_title=s_title').fetchone()
+            one_id = song_id[0]
+            conn.execute('INSERT INTO interacted_with (u_username, s_id) VALUES (?, ?)',
+                         ('sam_haj', int(one_id)))
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
@@ -143,6 +147,10 @@ def create_movie():
             conn = get_db_connection()
             conn.execute('INSERT INTO movie (mo_title, year_no, favorite, star_amount, media_comment, mo_director) VALUES (?, ?, ?, ?, ?, ?)',
                          (mo_title, year_no, favorite, star_amount, media_comment, mo_director))
+            mo_id = conn.execute('SELECT mo.id FROM movie mo WHERE mo.mo_title=mo_title').fetchone()
+            one_id = mo_id[0]
+            conn.execute('INSERT INTO interacted_with (u_username, mo_id) VALUES (?, ?)',
+                         ('sam_haj', int(one_id)))
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
@@ -167,6 +175,10 @@ def create_game():
             conn = get_db_connection()
             conn.execute('INSERT INTO game (g_title, year_no, favorite, star_amount, media_comment, g_genre) VALUES (?, ?, ?, ?, ?, ?)',
                          (g_title, year_no, favorite, star_amount, media_comment, g_genre))
+            game_id = conn.execute('SELECT g.id FROM game g WHERE g.g_title=g_title').fetchone()
+            one_id = game_id[0]
+            conn.execute('INSERT INTO interacted_with (u_username, g_id) VALUES (?, ?)',
+                         ('sam_haj', int(one_id)))
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
@@ -192,6 +204,10 @@ def create_comic():
             conn = get_db_connection()
             conn.execute('INSERT INTO comic (c_title, year_no, favorite, star_amount, media_comment, c_series) VALUES (?, ?, ?, ?, ?, ?)',
                          (c_title, year_no, favorite, star_amount, media_comment, c_series))
+            comic_id = conn.execute('SELECT c.id FROM comic c WHERE c.c_title=c_title').fetchone()
+            one_id = comic_id[0]
+            conn.execute('INSERT INTO interacted_with (u_username, c_id) VALUES (?, ?)',
+                         ('sam_haj', int(one_id)))
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
@@ -219,6 +235,10 @@ def create_tvshow():
             conn = get_db_connection()
             conn.execute('INSERT INTO tv_show (tv_title, year_no, favorite, star_amount, media_comment, tv_season_count, is_cgi, is_animated) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
                          (tv_title, year_no, favorite, star_amount, media_comment, tv_season_count, is_cgi, is_animated))
+            tv_id = conn.execute('SELECT tv.id FROM tv_show tv WHERE tv.tv_title=tv_title').fetchone()
+            one_id = tv_id[0]
+            conn.execute('INSERT INTO interacted_with (u_username, tv_id) VALUES (?, ?)',
+                         ('sam_haj', int(one_id)))
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
@@ -327,38 +347,6 @@ def create_character_info():
             conn.close()
             return redirect(url_for('relationships'))
     return render_template('create_character_info.html', media_character=media_character)
-
-@app.route('/create_interaction/', methods=('GET', 'POST'))
-def create_interaction():
-    conn = get_db_connection()
-    users = conn.execute('SELECT * FROM users').fetchall()
-    song = conn.execute('SELECT * FROM song').fetchall()
-    tv_show = conn.execute('SELECT * FROM tv_show').fetchall()
-    movie = conn.execute('SELECT * FROM movie').fetchall()
-    game = conn.execute('SELECT * FROM game').fetchall()
-    comic = conn.execute('SELECT * FROM comic').fetchall()
-    media_character = conn.execute('SELECT * FROM media_character').fetchall()
-    if request.method == 'POST':
-        u_username = request.form['u_username']
-        mo_id = request.form['mo_id']
-        c_id = request.form['c_id']
-        s_id = request.form['s_id']
-        g_id = request.form['g_id']
-        tv_id = request.form['tv_id']
-        date_of_interaction = request.form['date_of_interaction']
-
-        if not u_username:
-            flash('Username is required!')
-        elif not date_of_interaction:
-            flash('First date interacted is required!')
-        
-        else:
-            conn.execute('INSERT INTO interacted_with (u_username, mo_id, c_id, s_id, g_id, tv_id, date_of_interaction) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                         (u_username, mo_id, c_id, s_id, g_id, tv_id, date_of_interaction))
-            conn.commit()
-            conn.close()
-            return redirect(url_for('relationships'))
-    return render_template('create_interaction.html', users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show, media_character=media_character)
 
 @app.route('/create_comic_artist/', methods=('GET', 'POST'))
 def create_comic_artist():
@@ -621,11 +609,24 @@ def queries():
     game = conn.execute('SELECT * FROM game').fetchall()
     comic = conn.execute('SELECT * FROM comic').fetchall()
     media_character = conn.execute('SELECT * FROM media_character').fetchall()
+    interacted_with = conn.execute('SELECT * FROM interacted_with').fetchall()
     curs = conn.cursor()
     curs.execute('SELECT sum(s.s_length) FROM song s')
-    sum_length = curs.fetchone()[0]
+    sum_len = curs.fetchone()[0]
     curs.execute('SELECT avg(s.s_length) FROM song s')
-    avg_length = curs.fetchone()[0]
+    avg_len = curs.fetchone()[0]
+    curs.execute('SELECT avg(s.star_amount + m.star_amount + g.star_amount + c.star_amount + tv.star_amount)/5.0 FROM song s, movie m, game g, comic c, tv_show tv')
+    avg_star = curs.fetchone()[0]
+    curs.execute('SELECT min(min(s.star_amount), min(m.star_amount), min(g.star_amount), min(c.star_amount), min(tv.star_amount)) FROM song s, movie m, game g, comic c, tv_show tv')
+    min_star = curs.fetchone()[0]
+    curs.execute('SELECT max(max(s.star_amount), max(m.star_amount), max(g.star_amount), max(c.star_amount), max(tv.star_amount)) FROM song s, movie m, game g, comic c, tv_show tv')
+    max_star = curs.fetchone()[0]
+    curs.execute('SELECT min(min(s.year_no), min(m.year_no), min(g.year_no), min(c.year_no), min(tv.year_no)) FROM song s, movie m, game g, comic c, tv_show tv')
+    min_year = curs.fetchone()[0]
+    curs.execute('SELECT max(max(s.year_no), max(m.year_no), max(g.year_no), max(c.year_no), max(tv.year_no)) FROM song s, movie m, game g, comic c, tv_show tv')
+    max_year = curs.fetchone()[0]
+    curs.execute('SELECT count(*) FROM interacted_with')
+    row_count = curs.fetchone()[0]
     conn.commit()
     conn.close()
-    return render_template('queries.html', sum_length=sum_length, avg_length=avg_length, users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show, media_character=media_character)
+    return render_template('queries.html', sum_len=sum_len, avg_len=avg_len, avg_star=avg_star, min_star=min_star, max_star=max_star, min_year=min_year, max_year=max_year, row_count=row_count)

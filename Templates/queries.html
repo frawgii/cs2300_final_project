@@ -4,14 +4,14 @@
     <h2>{% block query_title %} Aggregation Query Results {% endblock %}</h2>
     <div class='query_results'>
         <table>
-            <tr>Total Length of Songs Listened To (in seconds): {{sum_length}} </tr><br>
-            <tr>Average Length of Songs Listened To (in seconds): {{avg_length}} </tr><br>
-            <tr>Average Star Rating for All Media: </tr><br>
-            <tr>Minimum Star Rating for All Media:</tr><br>
-            <tr>Maximum Star Rating for All Media:</tr><br>
-            <tr>Oldest Year of Media Interacted With:</tr><br>
-            <tr>Newest Year of Media Interacted With:</tr><br>
-            <tr>Total Number of Media Interacted With:</tr><br>
+            <tr><b>Total Length of Songs Listened To (in seconds):</b> {{sum_len}} </tr><br>
+            <tr><b>Average Length of Songs Listened To (in seconds):</b> {{avg_len}} </tr><br>
+            <tr><b>Average Star Rating for All Media:</b> {{ avg_star }} </tr><br>
+            <tr><b>Minimum Star Rating for All Media:</b> {{ min_star }}</tr><br>
+            <tr><b>Maximum Star Rating for All Media:</b> {{ max_star }}</tr><br>
+            <tr><b>Oldest Year of Media Interacted With:</b> {{ min_year }}</tr><br>
+            <tr><b>Newest Year of Media Interacted With:</b> {{ max_year }}</tr><br>
+            <tr><b>Total Number of Media Interacted With:</b> {{ row_count }}</tr><br>
     </table>
     </div>
 {% endblock %}
