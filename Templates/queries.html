@@ -26,6 +26,23 @@
             <tr><b>Favorite Movies: </b> </tr><br>
             <tr><b>Favorite TV Shows: </b> </tr><br>
             <tr><b>Favorite Books: </b> </tr><br>
-
+            <tr><b>Actors in Both a Movie and TV Show: </b></tr>
+            <tr><b>Characters in All Games:</b></tr>
+            <tr><b></b></tr>
         </table>
+{% endblock %}
+
+{% user_driven_query %}
+    <h2>{% block user_driven_query_title %} User Driven Query Results {% endblock %}</h2>
+    <div class='user_driven_query_results'>
+        <table>
+            <tr><b>Find Media With Characters with Specified Fur Color </b>  </tr><br>
+            <tr><b>Find Media With Characters with Specified Hair Species </b>  </tr><br>
+            <tr><b>Game Specific Queries</b></tr><br>
+            <tr><b>Movie Specific Queries</b></tr><br>
+            <tr><b>TV Show Specific Queries</b></tr><br>
+            <tr><b>Comic Specific Queries</b></tr><br>
+            <tr><b>Song Specific Queries</b></tr><br>
+        </table>
+    </div>
 {% endblock %}
