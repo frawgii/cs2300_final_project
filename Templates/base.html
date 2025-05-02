@@ -29,7 +29,7 @@
 <body>
     <nav>
         <a href="{{ url_for('index') }}">Basic Media/Characters</a>
-        <a href="#">Additional Media/Character Info</a>
+        <a href="{{ url_for('more_info') }}">Additional Media/Character Info</a>
         <a href="{{ url_for('relationships') }}">Relationships</a>
         <a href="{{ url_for('queries') }}">Queries</a>
     </nav>
@@ -210,6 +210,30 @@
             <div class="alert">{{ message }}</div>
         {% endfor %}
         {% block movie_id_info %} {% endblock %}
+    </div>
+    <div class="more_user_info">
+        {% block more_user_info %} {% endblock %}
+    </div>
+    <div class="more_song_info">
+        {% block more_song_info %} {% endblock %}
+    </div>
+    <div class="more_movie_info">
+        {% block more_movie_info %} {% endblock %}
+    </div>
+    <div class="more_comic_info">
+        {% block more_comic_info %} {% endblock %}
+    </div>
+    <div class="more_cgi_info">
+        {% block more_cgi_info %} {% endblock %}
+    </div>
+    <div class="more_anim_info">
+        {% block more_anim_info %} {% endblock %}
+    </div>
+    <div class="more_game_info">
+        {% block more_game_info %} {% endblock %}
+    </div>
+    <div class="more_character_info">
+        {% block more_character_info %} {% endblock %}
     </div>
     
 </body>

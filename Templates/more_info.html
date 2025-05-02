@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% block more_user_info %}
+    <h1>{% block notif %} You can only view this page- no editing. 
+        If additional information is contained in the media and characters, 
+        it will  be displayed here, but if they have no extra attributes, 
+        it will only be shown on the first page.{% endblock %}</h1>
+    <br>
+{% endblock %}
+
+{% block more_song_info %}
+    <h1>{% block song_title %} Songs {% endblock %}</h1>
+    <div class='songs'>
+    <table>
+        <tr>
+            <th>Song Title</th>
+            <th>Year &emsp; </th>
+            <th>Star Amount &emsp;</th>
+            <th>Song Length &emsp;</th>
+            <th>Comment &emsp; &emsp;</th>
+            <th>Genre &emsp;</th>
+            <th>Artist &emsp;</th>
+        </tr>
+        {% for songs in song %}
+        <tr>
+            <td>{{ songs['s_title'] }}</td>
+            <td>{{ songs['year_no'] }}</td>
+            <td>{{ songs['star_amount'] }}</td>
+            <td>{{ songs['s_length'] }}</td>
+            <td>{{ songs['media_comment'] }}</td>
+            <td>{{ songs['s_genre'] }}</td>
+            <td>{{ songs['s_singer'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block more_comic_info %}
+    <h1>{% block comic_title %} Comics {% endblock %}</h1>
+    <div class='comics'>
+    <table>
+        <tr>
+            <th>Comic Title</th>
+            <th>Year &emsp; </th>
+            <th>Star Amount &emsp;</th>
+            <th>Comic Series &emsp;</th>
+            <th>Comic Artists</th>
+        </tr>
+        {% for comics in comic %}
+        <tr>
+            <td>{{ comics['c_title'] }}</td>
+            <td>{{ comics['year_no'] }}</td>
+            <td>{{ comics['star_amount'] }}</td>
+            <td>{{ comics['c_series'] }}</td>
+            <td>{{ comics['c_artist'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block more_anim_info %}
+    <h1>{% block anim_title %} Animated TV Shows {% endblock %}</h1>
+    <div class='tvs'>
+    <table>
+        <tr>
+            <th>Animated Show Title</th>
+            <th>Year &emsp; </th>
+            <th>Star Amount &emsp;</th>
+            <th>Comment &emsp;&emsp;&emsp;&emsp;</th>
+            <th>Season Count &emsp;</th>
+            <th>Animator</th>
+        </tr>
+        {% for tvs in anim_shows %}
+        <tr>
+            <td>{{ tvs['tv_title'] }}</td>
+            <td>{{ tvs['year_no'] }}</td>
+            <td>{{ tvs['star_amount'] }}</td>
+            <td>{{ tvs['media_comment'] }}</td>
+            <td>{{ tvs['tv_season_count'] }}</td>
+            <td>{{ tvs['anim_animator'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block more_cgi_info %}
+    <h1>{% block tv_title %} CGI TV Shows {% endblock %}</h1>
+    <div class='tvs'>
+    <table>
+        <tr>
+            <th>CGI Show Title</th>
+            <th>Year &emsp; </th>
+            <th>Star Amount &emsp;</th>
+            <th>Comment &emsp;&emsp;&emsp;&emsp;</th>
+            <th>Season Count &emsp;</th>
+            <th>Actor</th>
+        </tr>
+        {% for tvs in cgi_shows %}
+        <tr>
+            <td>{{ tvs['tv_title'] }}</td>
+            <td>{{ tvs['year_no'] }}</td>
+            <td>{{ tvs['star_amount'] }}</td>
+            <td>{{ tvs['media_comment'] }}</td>
+            <td>{{ tvs['tv_season_count'] }}</td>
+            <td>{{ tvs['cgi_actor'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block more_movie_info %}
+    <h1>{% block movie_title %} Movies {% endblock %}</h1>
+    <div class='movies'>
+    <table>
+        <tr>
+            <th>Movie Title</th>
+            <th>Year &emsp; </th>
+            <th>Star Amount &emsp;</th>
+            <th>Comment &emsp; &emsp; &emsp;</th>
+            <th>Director &emsp;</th>
+            <th>Actor</th>
+        </tr>
+        {% for movies in movie %}
+        <tr>
+            <td>{{ movies['mo_title'] }}</td>
+            <td>{{ movies['year_no'] }}</td>
+            <td>{{ movies['star_amount'] }}</td>
+            <td>{{ movies['media_comment'] }}</td>
+            <td>{{ movies['mo_director'] }}</td>
+            <td>{{ movies['mo_actor'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block more_game_info %}
+    <h1>{% block game_title %} Games {% endblock %}</h1>
+    <div class='games'>
+    <table>
+        <tr>
+            <th>Game Title</th>
+            <th>Year &emsp; </th>
+            <th>Star Amount &emsp;</th>
+            <th>Comment &emsp; &emsp; &emsp;</th>
+            <th>Game Genre &emsp;</th>
+        </tr>
+        {% for games in game %}
+        <tr>
+            <td>{{ games['g_title'] }}</td>
+            <td>{{ games['year_no'] }}</td>
+            <td>{{ games['star_amount'] }}</td>
+            <td>{{ games['media_comment'] }}</td>
+            <td>{{ games['g_genre'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block more_character_info %}
+    <h1>{% block character_title %} Characters {% endblock %}</h1>
+    <div class='chars'>
+    <table>
+        <tr>
+            <th>Character &emsp; </th>
+            <th>Fur Color &emsp; </th>
+            <th>Eye Color &emsp;</th>
+            <th>Fluff Color &emsp;</th>
+            <th>Journal Entry &emsp; &emsp;&emsp;&emsp;</th>
+            <th>Abilities &emsp;&emsp;&emsp;</th>
+            <th>Appearance &emsp;&emsp;&emsp;</th>
+        </tr>
+        {% for chars in media_character %}
+        <tr>
+            <td>{{ chars['ch_name'] }} the {{ chars['species'] }}</td>
+            <td>{{ chars['fur_color'] }}</td>
+            <td>{{ chars['eye_color'] }}</td>
+            <td>{{ chars['fluff_color'] }}</td>
+            <td>{{ chars['journal_entry'] }}</td>
+            <td>{{ chars['abilities'] }}</td>
+            <td>{{ chars['appearance'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

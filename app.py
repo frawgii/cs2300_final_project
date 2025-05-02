@@ -825,7 +825,7 @@ def game_queries():
     return render_template('game_queries.html', avg_star=avg_star, min_star=min_star, max_star=max_star,\
                              min_year=min_year, max_year=max_year, row_count=row_count)
 
-#Relationships page with big query
+#Pages with big/interesting queries
 @app.route('/relationships/')
 def relationships():
     conn = get_db_connection()
@@ -845,3 +845,18 @@ def relationships():
     return render_template('relationships.html', users=users, song=song, movie=movie,\
                             game=game, comic=comic, tv_show=tv_show, media_character=media_character, \
                             crosses=crosses)
+
+@app.route('/more_info/')
+def more_info():
+    conn = get_db_connection()
+    users = conn.execute('SELECT * FROM users').fetchall()
+    song = conn.execute('SELECT * FROM song s').fetchall()
+    cgi_shows = conn.execute('SELECT * FROM tv_show tv, cgi_actors cgi WHERE tv.is_cgi=1 AND tv.id=cgi.tv_id').fetchall()
+    anim_shows = conn.execute('SELECT * FROM tv_show tv, anim_animators a WHERE tv.is_animated=1 AND tv.id=a.tv_id').fetchall()
+    movie = conn.execute('SELECT * FROM movie m, movie_actors ma WHERE ma.mo_id=m.id').fetchall()
+    game = conn.execute('SELECT * FROM game').fetchall()
+    comic = conn.execute('SELECT * FROM comic c, comic_artists ca WHERE c.id=ca.c_id').fetchall()
+    media_character = conn.execute('SELECT * FROM media_character m, character_info c WHERE c.char_id=m.id').fetchall()
+    conn.close()
+    return render_template('more_info.html', users=users, song=song, cgi_shows=cgi_shows, movie=movie,\
+                            game=game, anim_shows=anim_shows, comic=comic, media_character=media_character)
