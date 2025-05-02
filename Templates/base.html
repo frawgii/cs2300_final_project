@@ -127,6 +127,12 @@
         {% endfor %}
         {% block query_info %} {% endblock %}
     </div>
+    <div class="more_query_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block more_query_info %} {% endblock %}
+    </div>
     
 </body>
 </html>

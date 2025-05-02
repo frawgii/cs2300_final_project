@@ -627,6 +627,18 @@ def queries():
     max_year = curs.fetchone()[0]
     curs.execute('SELECT count(*) FROM interacted_with')
     row_count = curs.fetchone()[0]
+    curs.execute('SELECT g_title FROM game g WHERE g.favorite = 1')
+    fav_g = curs.fetchall()
+    curs.execute('SELECT c_title FROM comic c WHERE c.favorite = 1')
+    fav_c = curs.fetchall()
+    curs.execute('SELECT tv_title FROM tv_show tv WHERE tv.favorite = 1')
+    fav_tv = curs.fetchall()
+    curs.execute('SELECT mo_title FROM movie mo WHERE mo.favorite = 1')
+    fav_mo = curs.fetchall()
+    curs.execute('SELECT s_title FROM song s WHERE s.favorite = 1')
+    fav_s = curs.fetchall()
     conn.commit()
     conn.close()
-    return render_template('queries.html', sum_len=sum_len, avg_len=avg_len, avg_star=avg_star, min_star=min_star, max_star=max_star, min_year=min_year, max_year=max_year, row_count=row_count)
+    return render_template('queries.html', sum_len=sum_len, avg_len=avg_len, avg_star=avg_star, min_star=min_star, max_star=max_star,\
+                             min_year=min_year, max_year=max_year, row_count=row_count, fav_g=fav_g, fav_c=fav_c, fav_tv=fav_tv,\
+                              fav_mo=fav_mo, fav_s=fav_s)
