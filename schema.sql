@@ -310,8 +310,8 @@ VALUES
     (1, 1, 1),
     (2, 2, 2),
     (3, 1, 3),
-    (1, 2, 4),
-    (2, 3, 5);
+    (1, 2, 2),
+    (2, 3, 1);
 
 INSERT INTO media_has_character(ch_id, g_id)
 VALUES

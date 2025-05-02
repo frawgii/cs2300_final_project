@@ -169,6 +169,48 @@
         {% endfor %}
         {% block game_query_info %} {% endblock %}
     </div>
+    <div class="display_crossovers">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block display_crossovers %} {% endblock %}
+    </div>
+    <div class="add_movie_actor">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block add_movie_actor %} {% endblock %}
+    </div>
+    <div class="movie_actor_create_title">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block movie_actor_create_title %} {% endblock %}
+    </div>
+    <div class="add_cgi_actor">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block add_cgi_actor %} {% endblock %}
+    </div>
+    <div class="create_animator">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block create_animator %} {% endblock %}
+    </div>
+    <div class="tv_id_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block tv_id_info %} {% endblock %}
+    </div>
+    <div class="movie_id_info">
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% block movie_id_info %} {% endblock %}
+    </div>
     
 </body>
 </html>

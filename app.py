@@ -65,6 +65,15 @@ def get_char(id):
         abort(404)
     return chars
 
+def get_crossover(id):
+    conn = get_db_connection()
+    crosses = conn.execute('SELECT * FROM crossover WHERE g_id = ? AND c_id = ? AND char_id = ?',
+                        (id,)).fetchone()
+    conn.close()
+    if crosses is None:
+        abort(404)
+    return crosses
+
 
 #"Home" pages
 @app.route('/')
@@ -80,18 +89,7 @@ def index():
     conn.close()
     return render_template('index.html', users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show, media_character=media_character)
 
-@app.route('/relationships/')
-def relationships():
-    conn = get_db_connection()
-    users = conn.execute('SELECT * FROM users').fetchall()
-    song = conn.execute('SELECT * FROM song').fetchall()
-    tv_show = conn.execute('SELECT * FROM tv_show').fetchall()
-    movie = conn.execute('SELECT * FROM movie').fetchall()
-    game = conn.execute('SELECT * FROM game').fetchall()
-    comic = conn.execute('SELECT * FROM comic').fetchall()
-    media_character = conn.execute('SELECT * FROM media_character').fetchall()
-    conn.close()
-    return render_template('relationships.html', users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show, media_character=media_character)
+
 
 
 #Pages for creating new entities
@@ -292,6 +290,69 @@ def create_crossover():
             conn.close()
             return redirect(url_for('index'))
     return render_template('create_crossover.html', game=game, comic=comic, media_character=media_character)
+
+@app.route('/create_animator/', methods=('GET', 'POST'))
+def create_animator():
+    conn = get_db_connection()
+    movie = conn.execute('SELECT * FROM movie').fetchall()
+    if request.method == 'POST':
+        tv_id = request.form['tv_id']
+        anim_animator = request.form['anim_animator']
+
+        if not tv_id:
+            flash('TV ID is required!')
+        elif not anim_animator:
+            flash('Animator name is required!')
+
+        else:
+            conn.execute('INSERT INTO anim_animators (tv_id, anim_animator) VALUES (?, ?)',
+                         (tv_id, anim_animator))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('relationships'))
+    return render_template('create_animator.html', movie=movie)
+
+@app.route('/create_cgi_actor/', methods=('GET', 'POST'))
+def create_cgi_actor():
+    conn = get_db_connection()
+    tv_show = conn.execute('SELECT * FROM tv_show').fetchall()
+    if request.method == 'POST':
+        tv_id = request.form['tv_id']
+        cgi_actor = request.form['cgi_actor']
+
+        if not tv_id:
+            flash('TV ID is required!')
+        elif not cgi_actor:
+            flash('Actor name is required!')
+
+        else:
+            conn.execute('INSERT INTO cgi_actors (tv_id, cgi_actor) VALUES (?, ?)',
+                         (tv_id, cgi_actor))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('relationships'))
+    return render_template('create_cgi_actor.html', tv_show=tv_show)
+
+@app.route('/create_movie_actor/', methods=('GET', 'POST'))
+def create_movie_actor():
+    conn = get_db_connection()
+    movie = conn.execute('SELECT * FROM movie').fetchall()
+    if request.method == 'POST':
+        mo_id = request.form['mo_id']
+        mo_actor = request.form['mo_actor']
+
+        if not mo_id:
+            flash('Movie ID is required!')
+        elif not mo_actor:
+            flash('Actor name is required!')
+
+        else:
+            conn.execute('INSERT INTO movie_actors (mo_id, mo_actor) VALUES (?, ?)',
+                         (mo_id, mo_actor))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('relationships'))
+    return render_template('create_movie_actor.html', movie=movie)
 
 @app.route('/create_m_has_c/', methods=('GET', 'POST'))
 def create_m_has_c():
@@ -596,6 +657,15 @@ def delete_char(id):
     conn.close()
     return redirect(url_for('index'))
 
+@app.route('/<int:id>/delete_crossover/', methods=('POST',))
+def delete_crossover(id):
+    crosses = get_crossover(id)
+    conn = get_db_connection()
+    conn.execute('DELETE FROM crossover WHERE g_id = ? AND c_id = ? AND char_id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('relationships'))
+
 
 # SQL QUERIES TO EXECUTE
 @app.route('/queries/', methods=('GET', 'POST'))
@@ -754,3 +824,24 @@ def game_queries():
     conn.close()
     return render_template('game_queries.html', avg_star=avg_star, min_star=min_star, max_star=max_star,\
                              min_year=min_year, max_year=max_year, row_count=row_count)
+
+#Relationships page with big query
+@app.route('/relationships/')
+def relationships():
+    conn = get_db_connection()
+    users = conn.execute('SELECT * FROM users').fetchall()
+    song = conn.execute('SELECT * FROM song').fetchall()
+    tv_show = conn.execute('SELECT * FROM tv_show').fetchall()
+    movie = conn.execute('SELECT * FROM movie').fetchall()
+    game = conn.execute('SELECT * FROM game').fetchall()
+    comic = conn.execute('SELECT * FROM comic').fetchall()
+    media_character = conn.execute('SELECT * FROM media_character').fetchall()
+    curs = conn.cursor()
+    curs.execute('SELECT g.g_title AS gt, c.c_title AS ct, ch.ch_name AS cht\
+                 FROM crossover co, game g, comic c, media_character ch \
+                 WHERE co.g_id = g.id AND co.c_id = c.id AND co.char_id = ch.id')
+    crosses = curs.fetchall()
+    conn.close()
+    return render_template('relationships.html', users=users, song=song, movie=movie,\
+                            game=game, comic=comic, tv_show=tv_show, media_character=media_character, \
+                            crosses=crosses)

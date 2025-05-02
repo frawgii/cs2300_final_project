@@ -5,12 +5,33 @@
 {% block create_relationships %}
 <div class="dropdown">
     <button class="dropbtn"><a href="{{ url_for('create_comic_artist') }}">Comic Artist</a></button>
-    <button class="dropbtn"><a href="{{ url_for('create_crossover') }}">Crossover</a></button>
     <button class="dropbtn"><a href="{{ url_for('create_m_has_c') }}">Character in Media</a></button>
     <button class="dropbtn"><a href="{{ url_for('create_character_info') }}">Character Info</a></button>
-    </div>
+    <button class="dropbtn"><a href="{{ url_for('create_animator') }}">TV Show Animator</a></button>
+    <button class="dropbtn"><a href="{{ url_for('create_cgi_actor') }}">CGI Show Actor</a></button>  
+    <button class="dropbtn"><a href="{{ url_for('create_movie_actor') }}">Movie Actor</a></button>
+  </div>
   </div>
   {% endblock %}
 
-{% block display_relationships %}
+{% block display_crossovers %}
+    <h3>{% block crossover_title %} Current crossovers with characters that mentioned them and the game and comic they reference: {% endblock %}</h3>
+    <div class='cross'>
+      <table>
+          <tr>
+              <th>Character &emsp; &emsp; </th>
+              <th>Game &emsp; &emsp; &emsp;&emsp; </th>
+              <th>Comic &emsp;</th>
+              <button class="dropbtn"><a href="{{ url_for('create_crossover') }}"> Create Crossover</a></button>
+          </tr>
+          {% for rows in crosses %}
+          <tr>
+              <td>{{ rows['cht'] }}</td>
+              <td>{{ rows['gt'] }}</td>
+              <td>{{ rows['ct'] }}</td>
+  
+          </tr>
+          {% endfor %}
+      </table>
+    </div>
 {% endblock %}
