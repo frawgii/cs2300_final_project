@@ -1,1 +1,1 @@
-Welcome to the Sonic database! To run this project,  you will need to do the following: (insert steps once project done)
+Welcome to the Sonic database! The details to run the project are on the PDF submitted.
