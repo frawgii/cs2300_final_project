@@ -699,8 +699,6 @@ def queries():
     fav_s = curs.fetchall()
     curs.execute('SELECT DISTINCT cgi.cgi_actor FROM cgi_actors cgi, tv_show tv, movie mo, movie_actors ma WHERE cgi.tv_id = tv.id AND mo.id = ma.mo_id AND cgi.cgi_actor = ma.mo_actor')
     actor_list = curs.fetchall()
-    #curs.execute('SELECT ch.ch_name FROM media_character ch WHERE NOT EXISTS ((SELECT m.ch_id FROM media_has_character m) EXCEPT (SELECT mc.id FROM media_character mc WHERE ch.id=mc.id))')
-    #all_char = curs.fetchall()
     conn.commit()
     conn.close()
     return render_template('queries.html', sum_len=sum_len, avg_len=avg_len, avg_star=avg_star, min_star=min_star, max_star=max_star,\
