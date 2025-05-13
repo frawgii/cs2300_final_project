@@ -12,3 +12,18 @@
         <button type="submit">Submit</button>
     </form>
 {% endblock %}
+
+{% block character_info %}
+    <div class='chars'>
+        <table>
+            <tr>
+                <th><b>Character Name </b> </th>
+            </tr>
+            {% for chars in media_character %}
+            <tr>
+                <td>{{ chars['ch_name'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

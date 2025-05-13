@@ -6,9 +6,23 @@
         <label for="fur_color">Fur Color</label>
         <br>
          <input type="text" name="fur_color"
-           placeholder="Color"
+           placeholder="Fur Color"
            value="{{ request.form['fur_color'] }}"></input>
         <br>
         <button type="submit">Submit</button>
     </form>
+{% endblock %}
+{% block character_info %}
+    <div class='chars'>
+        <table>
+            <tr>
+                <th><b>Character Name </b> </th>
+            </tr>
+            {% for chars in media_character %}
+            <tr>
+                <td>{{ chars['ch_name'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}

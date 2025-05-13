@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block f_m_w_c %}
-    <h1>{% block comic_title %} Find Media with Certain Character {% endblock %}</h1>
+    <h1>{% block user_title %} Find Media with Certain Character {% endblock %}</h1>
     <form method="post">
         <label for="ch_name">Character Name</label>
         <br>
@@ -11,4 +11,99 @@
         <br>
         <button type="submit">Submit</button>
     </form>
+{% endblock %}
+
+{% block song_info %}
+    <h1>{% block song_title %} Songs {% endblock %}</h1>
+    <div class='songs'>
+    <table>
+        <tr>
+            <th>Song Title</th>
+        </tr>
+        {% for songs in song %}
+        <tr>
+            <td>{{ songs['s_title'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block comic_info %}
+    <h1>{% block comic_title %} Comics {% endblock %}</h1>
+    <div class='comics'>
+    <table>
+        <tr>
+            <th>Comic Title</th>
+        </tr>
+        {% for comics in comic %}
+        <tr>
+            <td>{{ comics['c_title'] }}</td>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block tv_info %}
+    <h1>{% block tv_title %} TV Shows {% endblock %}</h1>
+    <div class='tvs'>
+    <table>
+        <tr>
+            <th>TV Show Title</th>
+        </tr>
+        {% for tvs in tv_show %}
+        <tr>
+            <td>{{ tvs['tv_title'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block movie_info %}
+    <h1>{% block movie_title %} Movies {% endblock %}</h1>
+    <div class='movies'>
+    <table>
+        <tr>
+            <th>Movie Title</th>
+        </tr>
+        {% for movies in movie %}
+        <tr>
+            <td>{{ movies['mo_title'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block game_info %}
+    <h1>{% block game_title %} Games {% endblock %}</h1>
+    <div class='games'>
+    <table>
+        <tr>
+            <th>Game Title</th>
+        </tr>
+        {% for games in game %}
+        <tr>
+            <td>{{ games['g_title'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block character_info %}
+    <h1>{% block character_title %} Characters {% endblock %}</h1>
+    <div class='chars'>
+    <table>
+        <tr>
+            <th>Character &emsp; </th>
+        </tr>
+        {% for chars in media_character %}
+        <tr>
+            <td>{{ chars['ch_name'] }} the {{ chars['species'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}

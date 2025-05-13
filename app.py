@@ -394,7 +394,7 @@ def create_character_info():
         abilities = request.form['abilities']
         appearance = request.form['appearance']
 
-        if not ch_id:
+        if not char_id:
             flash('Character ID is required!')
         elif not journal_entry:
             flash('Journal entry is required!')
@@ -885,11 +885,8 @@ def find_c_w_f():
         curs = conn.cursor()
         curs.execute('SELECT c.ch_name FROM media_character c WHERE fur_color=?', (cfur_color,))
         chars = curs.fetchall()
-        for i in chars:
-            flash('Character Name: ' + str(i['ch_name']))
-        conn.commit()
         conn.close()
-        return redirect(url_for('find_c_w_f'))
+        return render_template('find_c_w_f.html', media_character=chars)
     return render_template('find_c_w_f.html')
 
 @app.route('/find_c_w_s/', methods=('GET', 'POST'))
@@ -900,12 +897,9 @@ def find_c_w_s():
         curs = conn.cursor()
         curs.execute('SELECT c.ch_name FROM media_character c WHERE species=?', (cspecies,))
         chars = curs.fetchall()
-        for i in chars:
-            flash('Character Name: ' + str(i['ch_name']))
-        conn.commit()
         conn.close()
-        return redirect(url_for('find_c_w_s'))
-    return render_template('find_c_w_s.html')
+        return render_template('find_c_w_s.html', media_character=chars)
+    return render_template('find_c_w_s.html', media_character=[])
 
 
 
