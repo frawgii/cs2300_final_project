@@ -24,13 +24,6 @@
                value="{{ request.form['c_id'] }}"></input>
         <br>
 
-        <label for="s_id">Song ID</label>
-        <br>
-        <input type="int" name="s_id"
-               placeholder="Song ID"
-               value="{{ request.form['s_id'] }}"></input>
-        <br>
-
         <label for="g_id">Game ID</label>
         <br>
         <input type="int" name="g_id"
@@ -64,24 +57,6 @@
         <tr>
             <td>{{ characters['id'] }}</td>
             <td>{{ characters['ch_name'] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
-{% endblock %}
-
-{% block song_info %}
-    <h1>{% block song_title %} Songs {% endblock %}</h1>
-    <div class='songs'>
-    <table>
-        <tr>
-            <th>Song ID</th>
-            <th>Song Title</th>
-        </tr>
-        {% for songs in song %}
-        <tr>
-            <td>{{ songs['id'] }}</td>
-            <td>{{ songs['s_title'] }}</td>
         </tr>
         {% endfor %}
     </table>

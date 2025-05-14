@@ -358,7 +358,6 @@ def create_movie_actor():
 def create_m_has_c():
     conn = get_db_connection()
     users = conn.execute('SELECT * FROM users').fetchall()
-    song = conn.execute('SELECT * FROM song').fetchall()
     tv_show = conn.execute('SELECT * FROM tv_show').fetchall()
     movie = conn.execute('SELECT * FROM movie').fetchall()
     game = conn.execute('SELECT * FROM game').fetchall()
@@ -368,7 +367,6 @@ def create_m_has_c():
         ch_id = request.form['ch_id']
         mo_id = request.form['mo_id']
         c_id = request.form['c_id']
-        s_id = request.form['s_id']
         g_id = request.form['g_id']
         tv_id = request.form['tv_id']
 
@@ -377,12 +375,12 @@ def create_m_has_c():
         
         else:
             
-            conn.execute('INSERT INTO media_has_character (ch_id, g_id, c_id, tv_id, mo_id, s_id) VALUES (?, ?, ?, ?, ?, ?)',
-                         (ch_id, g_id, c_id, tv_id, mo_id, s_id))
+            conn.execute('INSERT INTO media_has_character (ch_id, g_id, c_id, tv_id, mo_id) VALUES (?, ?, ?, ?, ?)',
+                         (ch_id, g_id, c_id, tv_id, mo_id))
             conn.commit()
             conn.close()
             return redirect(url_for('relationships'))
-    return render_template('create_m_has_c.html', users=users, song=song, movie=movie, game=game, comic=comic, tv_show=tv_show, media_character=media_character)
+    return render_template('create_m_has_c.html', users=users, movie=movie, game=game, comic=comic, tv_show=tv_show, media_character=media_character)
 
 @app.route('/create_character_info/', methods=('GET', 'POST'))
 def create_character_info():
