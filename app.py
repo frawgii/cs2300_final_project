@@ -858,23 +858,13 @@ def find_m_w_c():
         mch_name = request.form['ch_name']
         conn = get_db_connection()
         curs = conn.cursor()
-        curs.execute('SELECT m.c_id, m.mo_id, m.g_id, m.tv_id, m.s_id FROM media_has_character m, media_character c \
-                     WHERE m.ch_id=c.id AND c.ch_name=?', (mch_name,))
+        curs.execute('SELECT s.s_title, g.g_title, co.c_title, tv.tv_title, mo.mo_title\
+                    FROM media_has_character m, media_character c, song s, game g, comic co, tv_show tv, movie mo\
+                     WHERE (m.ch_id=c.id) AND (m.mo_id=mo.id OR m.c_id=co.id  OR m.g_id=g.id OR m.tv_id=tv.id OR m.s_id=s.id)\
+                    AND c.ch_name=?', (mch_name,))
         media = curs.fetchall()
-        for i in media:
-            if i['g_id'] != None:
-                flash('Game ID: ' + str(i['g_id']))
-            elif i['c_id'] != None:
-                flash('Comic ID: ' + str(i['c_id']))
-            elif i['tv_id'] != None:
-                flash('TV ID: ' + str(i['tv_id']))
-            elif i['s_id'] != None:
-                flash('Song ID: ' + str(i['s_id']))
-            elif i['mo_id'] != None:
-                flash('Movie ID: ' + str(i['mo_id']))
-        conn.commit()
         conn.close()
-        return redirect(url_for('find_m_w_c'))
+        return render_template('find_m_w_c.html', media_character=media)
     return render_template('find_m_w_c.html')
 
 @app.route('/find_c_w_f/', methods=('GET', 'POST'))
