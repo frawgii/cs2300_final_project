@@ -294,7 +294,7 @@ def create_crossover():
 @app.route('/create_animator/', methods=('GET', 'POST'))
 def create_animator():
     conn = get_db_connection()
-    movie = conn.execute('SELECT * FROM movie').fetchall()
+    tv_show = conn.execute('SELECT * FROM tv_show').fetchall()
     if request.method == 'POST':
         tv_id = request.form['tv_id']
         anim_animator = request.form['anim_animator']
@@ -310,7 +310,7 @@ def create_animator():
             conn.commit()
             conn.close()
             return redirect(url_for('relationships'))
-    return render_template('create_animator.html', movie=movie)
+    return render_template('create_animator.html', tv_show=tv_show)
 
 @app.route('/create_cgi_actor/', methods=('GET', 'POST'))
 def create_cgi_actor():

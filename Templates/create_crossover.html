@@ -27,19 +27,37 @@
     </form>
 {% endblock %}
 
-{% block crossover_create_title %} Here is information for the entities for crossovers: {% endblock %}
+{% block interaction_title %} Here is the list of IDs: {% endblock %}
 
-{% block comic_cross_info %}
-    <h1>{% block comic_cross_title %} Comics {% endblock %}</h1>
+{% block character_info %}
+    <h1>{% block character_title %} Characters {% endblock %}</h1>
+    <div class='characters'>
+    <table>
+        <tr>
+            <th>Character ID</th>
+            <th>Character Name</th>
+        </tr>
+        {% for characters in media_character %}
+        <tr>
+            <td>{{ characters['id'] }}</td>
+            <td>{{ characters['ch_name'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block comic_info %}
+    <h1>{% block comic_title %} Comics {% endblock %}</h1>
     <div class='comics'>
     <table>
         <tr>
-                <th>Comic ID &emsp;</th>
+            <th>Comic ID</th>
             <th>Comic Title</th>
         </tr>
         {% for comics in comic %}
         <tr>
-                <td>{{ comics['id'] }}</td>
+            <td>{{ comics['id'] }}</td>
             <td>{{ comics['c_title'] }}</td>
         </tr>
         {% endfor %}
@@ -47,36 +65,19 @@
 </div>
 {% endblock %}
 
-{% block game_cross_info %}
-    <h1>{% block game_cross_title %} Games {% endblock %}</h1>
+{% block game_info %}
+    <h1>{% block game_title %} Games {% endblock %}</h1>
     <div class='games'>
     <table>
         <tr>
-              <th>Game ID &emsp;</th>
+            <th>Game ID &emsp;</th>
             <th>Game Title</th>
         </tr>
         {% for games in game %}
         <tr>
-              <td>{{ games['id'] }}</td>
+            <td>{{ games['id'] }}</td>
             <td>{{ games['g_title'] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
-{% endblock %}
 
-{% block character_cross_info %}
-    <h1>{% block character_cross_title %} Characters {% endblock %}</h1>
-    <div class='chars'>
-    <table>
-        <tr>
-            <th>Character ID &emsp;</th>
-            <th>Character &emsp; </th>
-        </tr>
-        {% for chars in media_character %}
-        <tr>
-            <td>{{ chars['id'] }}</td>
-            <td>{{ chars['ch_name'] }} the {{ chars['species'] }}</td>
         </tr>
         {% endfor %}
     </table>
