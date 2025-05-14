@@ -12,6 +12,23 @@
         <button type="submit">Submit</button>
     </form>
 {% endblock %}
+
+{% block game_info %}
+    <h1>{% block game_title %} Games {% endblock %}</h1>
+    <div class='games'>
+    <table>
+        <tr>
+            <th>Game Title</th>
+        </tr>
+        {% for games in game %}
+        <tr>
+            <td>{{ games['g_title'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
 {% block comic_info %}
     <h1>{% block comic_title %} Comics {% endblock %}</h1>
     <div class='comics'>
@@ -59,18 +76,3 @@
 </div>
 {% endblock %}
 
-{% block game_info %}
-    <h1>{% block game_title %} Games {% endblock %}</h1>
-    <div class='games'>
-    <table>
-        <tr>
-            <th>Game Title</th>
-        </tr>
-        {% for games in game %}
-        <tr>
-            <td>{{ games['g_title'] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
-{% endblock %}

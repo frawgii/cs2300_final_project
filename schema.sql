@@ -165,13 +165,11 @@ CREATE TABLE media_has_character (
     c_id INT,
     tv_id INT,
     mo_id INT,
-    s_id INT,
     FOREIGN KEY (ch_id) REFERENCES media_character(id) ON DELETE CASCADE,
     FOREIGN KEY (g_id) REFERENCES game(id) ON DELETE CASCADE,
     FOREIGN KEY (c_id) REFERENCES comic(id) ON DELETE CASCADE,
     FOREIGN KEY (tv_id) REFERENCES tv_show(id) ON DELETE CASCADE,
-    FOREIGN KEY (mo_id) REFERENCES movie(id) ON DELETE CASCADE,
-    FOREIGN KEY (s_id) REFERENCES song(id) ON DELETE CASCADE
+    FOREIGN KEY (mo_id) REFERENCES movie(id) ON DELETE CASCADE
 );
 
 
@@ -328,5 +326,43 @@ VALUES
     (4, 3),
     (5, 1),
     (5, 3);
+
+INSERT INTO media_has_character(ch_id, c_id)
+VALUES
+    (1,1),
+    (2,1),
+    (3,1),
+    (1,2),
+    (3,2),
+    (4,2),
+    (5,1),
+    (5,2);
+
+INSERT INTO media_has_character(ch_id, tv_id)
+VALUES 
+    (1, 1),
+    (1, 2),
+    (2, 1),
+    (2, 2),
+    (3, 1),
+    (3, 2),
+    (3, 3),
+    (4, 1),
+    (4, 2),
+    (5, 1),
+    (5, 2);
+
+INSERT INTO media_has_character(ch_id, mo_id)
+VALUES  
+    (1, 1),
+    (1, 2),
+    (1, 3),
+    (2, 2),
+    (2, 3),
+    (3, 2),
+    (3, 3),
+    (5, 3);
+
+    
 
 
