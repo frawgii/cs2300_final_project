@@ -12,18 +12,65 @@
         <button type="submit">Submit</button>
     </form>
 {% endblock %}
+{% block comic_info %}
+    <h1>{% block comic_title %} Comics {% endblock %}</h1>
+    <div class='comics'>
+    <table>
+        <tr>
+            <th>Comic Title</th>
+        </tr>
+        {% for comics in comic %}
+        <tr>
+            <td>{{ comics['c_title'] }}</td>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
 
-{% block character_info %}
-    <div class='chars'>
-        <table>
-            <tr>
-                <th><b>Media Name </b> </th>
-            </tr>
-            {% for media in media_character %}
-            <tr>
-                <td>{{ media[0] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
+{% block tv_info %}
+    <h1>{% block tv_title %} TV Shows {% endblock %}</h1>
+    <div class='tvs'>
+    <table>
+        <tr>
+            <th>TV Show Title</th>
+        </tr>
+        {% for tvs in tv_show %}
+        <tr>
+            <td>{{ tvs['tv_title'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block movie_info %}
+    <h1>{% block movie_title %} Movies {% endblock %}</h1>
+    <div class='movies'>
+    <table>
+        <tr>
+            <th>Movie Title</th>
+        </tr>
+        {% for movies in movie %}
+        <tr>
+            <td>{{ movies['mo_title'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block game_info %}
+    <h1>{% block game_title %} Games {% endblock %}</h1>
+    <div class='games'>
+    <table>
+        <tr>
+            <th>Game Title</th>
+        </tr>
+        {% for games in game %}
+        <tr>
+            <td>{{ games['g_title'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}

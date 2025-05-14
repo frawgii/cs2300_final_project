@@ -857,14 +857,38 @@ def find_m_w_c():
     if request.method == 'POST':
         mch_name = request.form['ch_name']
         conn = get_db_connection()
+        tv_show = conn.execute('SELECT * FROM tv_show').fetchall()
+        movie = conn.execute('SELECT * FROM movie').fetchall()
+        game = conn.execute('SELECT * FROM game').fetchall()
+        comic = conn.execute('SELECT * FROM comic').fetchall()
         curs = conn.cursor()
-        curs.execute('SELECT s.s_title, g.g_title, co.c_title, tv.tv_title, mo.mo_title\
-                    FROM media_has_character m, media_character c, song s, game g, comic co, tv_show tv, movie mo\
-                     WHERE (m.ch_id=c.id) AND (m.mo_id=mo.id OR m.c_id=co.id  OR m.g_id=g.id OR m.tv_id=tv.id OR m.s_id=s.id)\
+        # curs.execute('SELECT DISTINCT g.g_title, co.c_title, tv.tv_title, mo.mo_title\
+        #             FROM media_has_character m, media_character c,  game g, comic co, tv_show tv, movie mo\
+        #              WHERE (m.ch_id=c.id) AND (m.mo_id=mo.id OR m.c_id=co.id  OR m.g_id=g.id OR m.tv_id=tv.id)\
+        #             AND c.ch_name=?', (mch_name,))
+        # media = curs.fetchall()
+        curs.execute('SELECT DISTINCT g.g_title\
+                    FROM media_has_character m, media_character c,  game g\
+                     WHERE (m.ch_id=c.id) AND m.g_id=g.id\
                     AND c.ch_name=?', (mch_name,))
-        media = curs.fetchall()
+        games = curs.fetchall()
+        curs.execute('SELECT DISTINCT co.c_title\
+                    FROM media_has_character m, media_character c, comic co\
+                     WHERE (m.ch_id=c.id) AND m.c_id=co.id\
+                    AND c.ch_name=?', (mch_name,))
+        comics = curs.fetchall()
+        curs.execute('SELECT DISTINCT tv.tv_title\
+                    FROM media_has_character m, media_character c, tv_show tv\
+                     WHERE (m.ch_id=c.id) AND m.tv_id=tv.id\
+                    AND c.ch_name=?', (mch_name,))
+        tvs = curs.fetchall()
+        curs.execute('SELECT DISTINCT mo.mo_title\
+                    FROM media_has_character m, media_character c, movie mo\
+                     WHERE (m.ch_id=c.id) AND m.mo_id=mo.id\
+                    AND c.ch_name=?', (mch_name,))
+        movies = curs.fetchall()
         conn.close()
-        return render_template('find_m_w_c.html', media_character=media)
+        return render_template('find_m_w_c.html', comics=comics, games=games, tvs=tvs, movies=movies, tv_show=tv_show, movie=movie, game=game, comic=comic)
     return render_template('find_m_w_c.html')
 
 @app.route('/find_c_w_f/', methods=('GET', 'POST'))
